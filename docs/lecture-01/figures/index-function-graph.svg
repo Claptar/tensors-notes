@@ -1,4 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300">
+  <!-- lecture-notes:theme: follows light/dark; see .claude/skills/lecture-notes/scripts/theme_svg.py -->
+  <defs><filter id="ln-dark" filterUnits="userSpaceOnUse" x="0" y="0" width="640" height="300" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.574 -1.430 -0.144 0 1  -0.426 -0.430 -0.144 0 1  -0.426 -1.430 0.856 0 1  0 0 0 1 0"/></filter></defs>
+  <style>@media (prefers-color-scheme: dark) { .ln-theme { filter: url(#ln-dark); } }</style>
+  <g class="ln-theme">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
@@ -33,7 +37,6 @@
     .mid { text-anchor: middle; }
     .end { text-anchor: end; }
   </style>
-  <rect width="100%" height="100%" fill="#ffffff"/>
   <path class="ink" d="M58,262 L317.5,262" marker-end="url(#arrow)"/>
   <path class="ink" d="M70,274 L70,30.8" marker-end="url(#arrow)"/>
   <text class="m" x="313.5" y="286">x</text>
@@ -84,4 +87,5 @@
   <text class="m lbl-red" x="565" y="56">a<tspan class="t sub" dy="5">4</tspan></text>
   <text class="m" x="150" y="22">f<tspan class="t">:</tspan> ℝ <tspan class="t">→</tspan> ℝ</text>
   <text class="m" x="455" y="22">a<tspan class="t">:</tspan> I <tspan class="t">→</tspan> ℝ</text>
+  </g>
 </svg>

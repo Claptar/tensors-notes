@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300">
   <!--
     House style for ТЕНЗОРЫ figures. Copy this file, keep the defs and style blocks, replace the drawing.
-    - White background rect: the figure must read the same on a dark VS Code theme and in print.
+    - No background rect: after drawing, run scripts/theme_svg.py on the file. It makes the
+      figure follow light/dark (website, github.com, VS Code); light mode is exactly as drawn.
     - Ink #1a1a1a for the main drawing; red #c0392b for the thing the figure is about
       (the lecturer's red pen); blue #2563a8 for a second, contrasting object. No other colours.
     - Fills only as light tints (.tint-*), never solid.
@@ -41,7 +42,6 @@
     .lbl-red { fill: #c0392b; }
     .lbl-blue { fill: #2563a8; }
   </style>
-  <rect width="100%" height="100%" fill="#ffffff"/>
 
   <!-- Example drawing: a map f: X → Y between two sets. Replace with the real figure. -->
   <path class="ink tint-grey" d="M70,150 C60,80 150,50 210,70 C270,90 280,170 240,220 C200,265 90,250 70,150 Z"/>

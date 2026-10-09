@@ -114,14 +114,10 @@ a:hover { color: var(--accent); }
 .doc-links a { display: inline-block; padding: .15rem .7rem; border: 1px solid var(--rule-strong);
   border-radius: 999px; text-decoration: none; }
 
-/* figures follow the theme. The SVGs are black ink on white: in light mode the white blends into
-   the paper (multiply); in dark mode they are inverted with hues kept (red stays red), and the
-   now-black background blends into the page (screen), so light-grey fills stay faintly visible. */
-.content img { display: block; max-width: 100%; height: auto; margin: 1.6rem auto .5rem;
-  mix-blend-mode: multiply; }
-@media (prefers-color-scheme: dark) {
-  .content img { filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen; }
-}
+/* Figures follow the theme by themselves: each SVG has a transparent background and its own
+   dark-mode rule (scripts/theme_svg.py in the lecture-notes skill). No filter here, or dark mode
+   would invert them twice. */
+.content img { display: block; max-width: 100%; height: auto; margin: 1.6rem auto .5rem; }
 .content p.figcaption { text-align: center; color: var(--muted); font-size: .9rem; margin: 0 auto 1.6rem; max-width: 36rem; }
 
 /* tables scroll sideways on narrow screens instead of widening the page */
@@ -169,5 +165,4 @@ a:hover { color: var(--accent); }
   .sidebar, .topbar, .pager, .doc-links { display: none; }
   .layout { display: block; }
   body { background: #fff; color: #000; }
-  .content img { filter: none; mix-blend-mode: normal; }
 }

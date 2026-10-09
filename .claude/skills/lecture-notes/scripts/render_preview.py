@@ -167,6 +167,12 @@ def main():
         why = text_problem(line)
         if why:
             print(f"NOT LATEX-SAFE: {why}: {line.strip()[:80]}"); problems += 1
+    # Every SVG figure must carry its own light/dark rule (theme_svg.py), or it shows as a white box
+    # on a dark page: on the website, on github.com and in VS Code.
+    for src in re.findall(r"!\[[^\]]*\]\(([^)\s]+\.svg)\)", src):
+        f = md_path.parent / src
+        if f.exists() and "lecture-notes:theme" not in f.read_text(encoding="utf-8"):
+            print(f"FIGURE NOT THEMED: {src} (run scripts/theme_svg.py on it)"); problems += 1
     print("OK: all math rendered, all images loaded." if not problems else f"{problems} problem(s).")
     sys.exit(1 if problems else 0)
 

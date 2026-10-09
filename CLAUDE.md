@@ -36,4 +36,4 @@ Use the `lecture-notes` skill (`.claude/skills/lecture-notes/`) for anything tha
 - **Google Chrome**, headless, renders Markdown previews and converts SVG → PDF. The preview loads KaTeX and markdown-it from jsDelivr, so it also needs network.
 - Python standard library only: no pandoc, numpy or matplotlib.
 - Homebrew lives in `~/.homebrew` (non-default prefix) and builds many formulae from source, so prefer prebuilt binaries.
-- `qlmanage -t -s 1000 -o <dir> file.svg` rasterizes an SVG to PNG for a quick visual check.
+- Figures are theme-aware SVGs: transparent background plus their own dark-mode rule, added by `.claude/skills/lecture-notes/scripts/theme_svg.py`. Check them in both themes with `scripts/snap_svg.py`. QuickLook (`qlmanage`) follows the Mac's appearance, so it shows only one theme.

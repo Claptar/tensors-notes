@@ -1,4 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" width="640" height="340">
+  <!-- lecture-notes:theme: follows light/dark; see .claude/skills/lecture-notes/scripts/theme_svg.py -->
+  <defs><filter id="ln-dark" filterUnits="userSpaceOnUse" x="0" y="0" width="640" height="340" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.574 -1.430 -0.144 0 1  -0.426 -0.430 -0.144 0 1  -0.426 -1.430 0.856 0 1  0 0 0 1 0"/></filter></defs>
+  <style>@media (prefers-color-scheme: dark) { .ln-theme { filter: url(#ln-dark); } }</style>
+  <g class="ln-theme">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
@@ -32,7 +36,6 @@
     .lbl-red { fill: #c0392b; }
     .lbl-blue { fill: #2563a8; }
   </style>
-  <rect width="100%" height="100%" fill="#ffffff"/>
   <polygon class="ink tint-grey" points="158.7,207.5 416.3,207.5 481.3,142.5 223.7,142.5"/>
   <text class="m" x="132.7" y="209.5">V</text>
   <line class="thin dash" x1="320" y1="175" x2="320" y2="230.2"/>
@@ -61,4 +64,5 @@
   <path class="ink" d="M320,175 L320,37" marker-end="url(#arrow)"/>
   <text class="t" x="329" y="49">ℝ</text>
   <circle class="dot" cx="320" cy="175" r="3.5"/>
+  </g>
 </svg>
