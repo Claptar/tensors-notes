@@ -102,7 +102,7 @@ Student questions: when a question led to a useful clarification, fold the clari
 
 ### 5. Draw the figures
 
-Follow `references/figures.md`: SVG files in `docs/lecture-NN/figures/`, referenced from the `.md` as `figures/<name>.svg`, house style from `assets/figure-template.svg`, coordinates computed rather than eyeballed. Run `scripts/theme_svg.py` on every new or regenerated SVG so it follows light/dark, and check every figure in both themes with `scripts/snap_svg.py`.
+Follow `references/figures.md`: SVG files in `docs/lecture-NN/figures/`, referenced from the `.md` as `figures/<name>.svg`, house style from `assets/figure-template.svg`, coordinates computed rather than eyeballed. Keep the white background (the website handles light/dark), and check every figure in both themes with `scripts/snap_svg.py`.
 
 ### 6. Verify
 

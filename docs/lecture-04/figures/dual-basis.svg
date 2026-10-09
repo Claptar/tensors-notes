@@ -1,8 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 370" width="640" height="370">
-  <!-- lecture-notes:theme: follows light/dark; see .claude/skills/lecture-notes/scripts/theme_svg.py -->
-  <defs><filter id="ln-dark" filterUnits="userSpaceOnUse" x="0" y="0" width="640" height="370" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.574 -1.430 -0.144 0 1  -0.426 -0.430 -0.144 0 1  -0.426 -1.430 0.856 0 1  0 0 0 1 0"/></filter></defs>
-  <style>@media (prefers-color-scheme: dark) { .ln-theme { filter: url(#ln-dark); } }</style>
-  <g class="ln-theme">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
@@ -36,6 +32,7 @@
     .lbl-red { fill: #c0392b; }
     .lbl-blue { fill: #2563a8; }
   </style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
   <line class="thin red" x1="60.3" y1="367" x2="202.1" y2="20.5"/>
   <text class="t lbl-red small" x="206.1" y="36.5">−1</text>
   <line class="ink red" x1="144.2" y1="367" x2="285.9" y2="20.5"/>
@@ -69,5 +66,4 @@
   <path class="deco" d="M380.7,102.1 h9 m-3,-2.5 l3,2.5 l-3,2.5"/>
   <text class="t" x="166" y="277">0</text>
   <path class="deco" d="M167,262 h9 m-3,-2.5 l3,2.5 l-3,2.5"/>
-  </g>
 </svg>

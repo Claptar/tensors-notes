@@ -31,8 +31,7 @@ Don't draw: decoration, a formula restated as a picture, a diagram of the lectur
 ## House style
 
 Start from `assets/figure-template.svg`: copy it, keep `<defs>` and `<style>`, replace the drawing.
-- Dark ink on no background: ink `#1a1a1a`, red `#c0392b` for the main object (the lecturer's red pen), blue `#2563a8` for a second contrasting object. Light tints only. Use a white fill only to hide what lies behind a shape (e.g. a sphere in front of a plane).
-- **Then make it theme-aware:** `python3 <skill-dir>/scripts/theme_svg.py docs/lecture-NN/figures/*.svg`. It removes the white background and puts a dark-mode rule inside the SVG (hue-preserving inversion: ink turns light, red stays red), so the figure follows light/dark on the website, on github.com and in VS Code. Run it again whenever a figure script regenerates an SVG, because the scripts write plain SVGs. `render_preview.py` reports any figure that isn't themed. All this only works for dark ink on a light ground, hence the colour rules above.
+- White background, ink `#1a1a1a`, red `#c0392b` for the main object (the lecturer's red pen), blue `#2563a8` for a second contrasting object. Light tints only. The white background keeps a figure readable in any viewer (VS Code, github.com, the PDF). On the website, `docs/assets/reader.css` makes figures follow the theme: the white blends into the paper, and in dark mode the figure is inverted with hues kept (ink turns light, red stays red). That only works for dark ink on white, hence these colour rules. Don't put a dark-mode rule inside the SVG itself: Safari doesn't apply it reliably for SVGs shown as images (tested).
 - Width 640, height as needed. `width`/`height` attributes equal the `viewBox`.
 - Math labels in serif italic (`class="m"`), subscripts via `<tspan class="sub" dy="5">`. Labels sit near what they name, never on top of a line.
 - One idea per figure. Two panels side by side ("было / стало", "чётные / нечётные") are fine when the comparison *is* the idea.
@@ -55,7 +54,7 @@ Surfaces are drawn as a few mesh lines or an outline, not shading. Hidden parts 
 
 ## Check every figure
 
-1. Render it in both themes: `python3 <skill-dir>/scripts/snap_svg.py figure.svg --out <scratch-dir>` writes `figure.light.png` (what the PDF gets) and `figure.dark.png` (what dark-theme readers see), each on the website's page colour. Look at both. Don't use QuickLook for this: it follows the Mac's own appearance, so it shows only one theme.
+1. Render it as the website shows it, in both themes: `python3 <skill-dir>/scripts/snap_svg.py figure.svg --out <scratch-dir>` writes `figure.light.png` and `figure.dark.png`, rendered by WebKit (Safari's engine, the strictest) with the site's figure styling. Look at both: nothing may vanish in dark mode.
 2. Ask: is it mathematically right (recompute one point)? Is every label legible and clear of lines? Is it obvious within two seconds what the figure is about? Would the caption alone explain it?
 3. Look at it again in context in the PDF from `render_preview.py`: is it next to the paragraph that discusses it, and is the size right?
 
