@@ -31,7 +31,7 @@ Don't draw: decoration, a formula restated as a picture, a diagram of the lectur
 ## House style
 
 Start from `assets/figure-template.svg`: copy it, keep `<defs>` and `<style>`, replace the drawing.
-- White background, ink `#1a1a1a`, red `#c0392b` for the main object (the lecturer's red pen), blue `#2563a8` for a second contrasting object. Light tints only.
+- White background, ink `#1a1a1a`, red `#c0392b` for the main object (the lecturer's red pen), blue `#2563a8` for a second contrasting object. Light tints only. This matters beyond looks: the website shows figures in dark mode by inverting them with hues kept (`invert(1) hue-rotate(180deg)`). That only works for dark ink on white; a dark fill or white text would come out wrong.
 - Width 640, height as needed. `width`/`height` attributes equal the `viewBox`.
 - Math labels in serif italic (`class="m"`), subscripts via `<tspan class="sub" dy="5">`. Labels sit near what they name, never on top of a line.
 - One idea per figure. Two panels side by side ("было / стало", "чётные / нечётные") are fine when the comparison *is* the idea.

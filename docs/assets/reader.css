@@ -36,7 +36,6 @@
   --link: #2f5d7c;
   --accent: #9a3b22;      /* the lecturer's red pen, toned down */
   --hover: #e9e3d6;
-  --shadow: 0 1px 3px rgba(60, 50, 30, .12);
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -50,7 +49,6 @@
     --link: #93bcd8;
     --accent: #e3906f;
     --hover: #2e2a24;
-    --shadow: 0 0 0 1px #3a352d;
     color-scheme: dark;
   }
 }
@@ -116,9 +114,14 @@ a:hover { color: var(--accent); }
 .doc-links a { display: inline-block; padding: .15rem .7rem; border: 1px solid var(--rule-strong);
   border-radius: 999px; text-decoration: none; }
 
-/* figures: the SVGs carry their own white background, so they sit on a white card in both themes */
+/* figures follow the theme. The SVGs are black ink on white: in light mode the white blends into
+   the paper (multiply); in dark mode they are inverted with hues kept (red stays red), and the
+   now-black background blends into the page (screen), so light-grey fills stay faintly visible. */
 .content img { display: block; max-width: 100%; height: auto; margin: 1.6rem auto .5rem;
-  background: #fff; border-radius: 8px; box-shadow: var(--shadow); }
+  mix-blend-mode: multiply; }
+@media (prefers-color-scheme: dark) {
+  .content img { filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen; }
+}
 .content p.figcaption { text-align: center; color: var(--muted); font-size: .9rem; margin: 0 auto 1.6rem; max-width: 36rem; }
 
 /* tables scroll sideways on narrow screens instead of widening the page */
@@ -166,4 +169,5 @@ a:hover { color: var(--accent); }
   .sidebar, .topbar, .pager, .doc-links { display: none; }
   .layout { display: block; }
   body { background: #fff; color: #000; }
+  .content img { filter: none; mix-blend-mode: normal; }
 }
