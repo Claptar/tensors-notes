@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300">
+  <!--
+    House style for ТЕНЗОРЫ figures. Copy this file, keep the defs and style blocks, replace the drawing.
+    - White background rect: the figure must read the same on a dark VS Code theme and in print.
+    - Ink #1a1a1a for the main drawing; red #c0392b for the thing the figure is about
+      (the lecturer's red pen); blue #2563a8 for a second, contrasting object. No other colours.
+    - Fills only as light tints (.tint-*), never solid.
+    - Math labels: serif italic (class "m"); digits and words upright (class "t").
+      Subscripts: <tspan class="sub" dy="5">ij</tspan>, and dy="-5" back if text continues.
+    - Arrowheads: marker-end="url(#arrow)" / #arrow-red / #arrow-blue.
+    - Width 640 (set width/height equal to the viewBox), height as needed.
+  -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#2563a8"/>
+    </marker>
+  </defs>
+  <style>
+    .ink  { stroke: #1a1a1a; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { stroke: #1a1a1a; stroke-width: 1; fill: none; }
+    .grid { stroke: #1a1a1a; stroke-width: 0.6; stroke-opacity: 0.25; fill: none; }
+    .red  { stroke: #c0392b; }
+    .blue { stroke: #2563a8; }
+    .dash { stroke-dasharray: 5 4; }
+    .tint-red  { fill: #c0392b; fill-opacity: 0.10; }
+    .tint-blue { fill: #2563a8; fill-opacity: 0.10; }
+    .tint-grey { fill: #1a1a1a; fill-opacity: 0.05; }
+    .dot  { fill: #1a1a1a; stroke: none; }
+    .dot-red { fill: #c0392b; stroke: none; }
+    text { fill: #1a1a1a; font-family: 'Times New Roman', Times, serif; font-size: 19px; }
+    .m { font-style: italic; }
+    .t { font-style: normal; }
+    .small { font-size: 15px; }
+    .sub { font-size: 13px; }
+    .lbl-red { fill: #c0392b; }
+    .lbl-blue { fill: #2563a8; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <!-- Example drawing: a map f: X → Y between two sets. Replace with the real figure. -->
+  <path class="ink tint-grey" d="M70,150 C60,80 150,50 210,70 C270,90 280,170 240,220 C200,265 90,250 70,150 Z"/>
+  <path class="ink tint-grey" d="M400,140 C390,70 500,45 560,80 C610,110 600,200 550,230 C490,265 410,220 400,140 Z"/>
+  <text class="m" x="120" y="275">X</text>
+  <text class="m" x="500" y="275">Y</text>
+
+  <circle class="dot" cx="150" cy="120" r="3.5"/>
+  <circle class="dot" cx="185" cy="185" r="3.5"/>
+  <circle class="dot-red" cx="470" cy="110" r="3.5"/>
+  <circle class="dot-red" cx="520" cy="180" r="3.5"/>
+  <path class="ink red" d="M155,118 C260,70 360,80 462,108" marker-end="url(#arrow-red)"/>
+  <path class="ink red" d="M190,186 C290,215 400,205 512,182" marker-end="url(#arrow-red)"/>
+  <text class="m" x="128" y="112">x</text>
+  <text class="m" x="478" y="104">f<tspan class="t">(</tspan>x<tspan class="t">)</tspan></text>
+  <text class="m" x="300" y="70">f</text>
+  <text class="m" x="160" y="208">a<tspan class="sub" dy="5">ij</tspan></text>
+</svg>

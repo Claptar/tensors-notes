@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#2563a8"/>
+    </marker>
+  </defs>
+  <style>
+    .ink  { stroke: #1a1a1a; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { stroke: #1a1a1a; stroke-width: 1; fill: none; }
+    .grid { stroke: #1a1a1a; stroke-width: 0.6; stroke-opacity: 0.25; fill: none; }
+    .red  { stroke: #c0392b; }
+    .blue { stroke: #2563a8; }
+    .dash { stroke-dasharray: 5 4; }
+    .tint-red  { fill: #c0392b; fill-opacity: 0.10; }
+    .tint-blue { fill: #2563a8; fill-opacity: 0.10; }
+    .tint-grey { fill: #1a1a1a; fill-opacity: 0.05; }
+    .dot  { fill: #1a1a1a; stroke: none; }
+    .dot-red { fill: #c0392b; stroke: none; }
+    .dot-blue { fill: #2563a8; stroke: none; }
+    text { fill: #1a1a1a; font-family: 'Times New Roman', Times, serif; font-size: 19px; }
+    .m { font-style: italic; }
+    .t { font-style: normal; }
+    .small { font-size: 15px; }
+    .sub { font-size: 13px; }
+    .lbl-red { fill: #c0392b; }
+    .lbl-blue { fill: #2563a8; }
+    .mid { text-anchor: middle; }
+    .end { text-anchor: end; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <rect class="tint-red" x="44" y="54" width="128" height="34" rx="8"/>
+  <rect class="tint-red" x="212" y="54" width="32" height="120" rx="8"/>
+  <rect class="tint-red" x="306" y="54" width="40" height="34" rx="8"/>
+  <text class="t mid" x="64" y="80">1</text>
+  <text class="t mid" x="108" y="80">2</text>
+  <text class="t mid" x="152" y="80">3</text>
+  <text class="t mid" x="228" y="80">3</text>
+  <text class="t mid lbl-red" x="326" y="80">26</text>
+  <text class="t mid" x="64" y="122">4</text>
+  <text class="t mid" x="108" y="122">5</text>
+  <text class="t mid" x="152" y="122">6</text>
+  <text class="t mid" x="228" y="122">4</text>
+  <text class="t mid" x="326" y="122">62</text>
+  <text class="t mid" x="64" y="164">7</text>
+  <text class="t mid" x="108" y="164">8</text>
+  <text class="t mid" x="152" y="164">9</text>
+  <text class="t mid" x="228" y="164">5</text>
+  <text class="t mid" x="326" y="164">98</text>
+  <path class="ink" d="M47,52 Q29,118 47,184"/>
+  <path class="ink" d="M169,52 Q187,118 169,184"/>
+  <path class="ink" d="M215,52 Q197,118 215,184"/>
+  <path class="ink" d="M241,52 Q259,118 241,184"/>
+  <path class="ink" d="M309,52 Q291,118 309,184"/>
+  <path class="ink" d="M343,52 Q361,118 343,184"/>
+  <text class="t mid" x="279.0" y="122">=</text>
+  <text class="m end" x="418" y="46">j<tspan class="t">:</tspan></text>
+  <text class="t small mid" x="440" y="46" fill-opacity="0.7">1</text>
+  <text class="t mid" x="440" y="80">1</text>
+  <text class="t mid" x="440" y="122">3</text>
+  <text class="t mid" x="440" y="170">3</text>
+  <path class="thin" d="M440,88 L440,100" stroke-opacity="0.5"/>
+  <text class="t small mid" x="492" y="46" fill-opacity="0.7">2</text>
+  <text class="t mid" x="492" y="80">2</text>
+  <text class="t mid" x="492" y="122">4</text>
+  <text class="t mid" x="492" y="170">8</text>
+  <path class="thin" d="M492,88 L492,100" stroke-opacity="0.5"/>
+  <text class="t small mid" x="544" y="46" fill-opacity="0.7">3</text>
+  <text class="t mid" x="544" y="80">3</text>
+  <text class="t mid" x="544" y="122">5</text>
+  <text class="t mid" x="544" y="170">15</text>
+  <path class="thin" d="M544,88 L544,100" stroke-opacity="0.5"/>
+  <text class="t mid" x="466.0" y="170">+</text>
+  <text class="t mid" x="518.0" y="170">+</text>
+  <path class="thin" d="M418,140 L566,140"/>
+  <text class="t" x="572" y="170">=</text>
+  <text class="t lbl-red" x="594" y="170" font-weight="bold">26</text>
+  <text class="m" x="578" y="80">a<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan></text>
+  <text class="m" x="578" y="122">b<tspan class="sub" dy="5">j</tspan></text>
+  <path class="thin dash" d="M228,194 C248,242 390,242 410,126" marker-end="url(#arrow)"/>
+</svg>

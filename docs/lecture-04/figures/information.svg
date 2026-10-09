@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" width="640" height="230">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#2563a8"/>
+    </marker>
+  </defs>
+  <style>
+    .ink  { stroke: #1a1a1a; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { stroke: #1a1a1a; stroke-width: 1; fill: none; }
+    .grid { stroke: #1a1a1a; stroke-width: 0.6; stroke-opacity: 0.25; fill: none; }
+    .red  { stroke: #c0392b; }
+    .blue { stroke: #2563a8; }
+    .dash { stroke-dasharray: 5 4; }
+    .tint-red  { fill: #c0392b; fill-opacity: 0.10; }
+    .tint-blue { fill: #2563a8; fill-opacity: 0.10; }
+    .tint-grey { fill: #1a1a1a; fill-opacity: 0.05; }
+    .dot  { fill: #1a1a1a; stroke: none; }
+    .dot-red { fill: #c0392b; stroke: none; }
+    .dot-blue { fill: #2563a8; stroke: none; }
+    .deco { stroke: #1a1a1a; stroke-width: 1.1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    text { fill: #1a1a1a; font-family: 'Times New Roman', Times, serif; font-size: 19px; }
+    .m { font-style: italic; }
+    .t { font-style: normal; }
+    .small { font-size: 15px; }
+    .sub { font-size: 13px; }
+    .lbl-red { fill: #c0392b; }
+    .lbl-blue { fill: #2563a8; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <line class="thin dash" x1="80" y1="180" x2="280" y2="180"/>
+  <path class="thin" d="M128.0,180.0 A48,48 0 0 0 120.3,153.9"/>
+  <text class="m" x="136" y="170">φ</text>
+  <path class="ink" d="M80,180 L218.4,90.1" marker-end="url(#arrow)"/>
+  <circle class="dot" cx="80" cy="180" r="3.5"/>
+  <text class="m" x="224.4" y="86.1">a</text>
+  <path class="deco" d="M225.4,71.1 h9 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="t" x="119.2" y="125.1">|</text>
+  <text class="m" x="125.2" y="125.1">a</text>
+  <path class="deco" d="M126.2,110.1 h9 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="t" x="135.2" y="125.1">|</text>
+  <line class="ink red" x1="379.7" y1="210" x2="480.7" y2="20"/>
+  <text class="t lbl-red small" x="485.7" y="34">0</text>
+  <line class="thin red" x1="431.8" y1="210" x2="532.8" y2="20"/>
+  <text class="t lbl-red small" x="537.8" y="34">1</text>
+  <line class="thin red" x1="483.9" y1="210" x2="584.9" y2="20"/>
+  <text class="t lbl-red small" x="589.9" y="34">2</text>
+  <line class="thin red" x1="536" y1="210" x2="617" y2="57.6"/>
+  <text class="t lbl-red small" x="622" y="71.6">3</text>
+  <line class="thin dash" x1="385" y1="200" x2="429" y2="200"/>
+  <path class="thin" d="M411.0,200.0 A26,26 0 0 0 397.2,177.0"/>
+  <text class="m" x="411" y="192">ψ</text>
+  <path class="ink" d="M470.2,137.7 L510.8,159.3" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text class="m" x="486.5" y="140.5">d</text>
+</svg>

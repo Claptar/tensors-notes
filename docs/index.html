@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Тензоры — конспекты лекций</title>
+  <meta name="description" content="Конспекты лекций курса «Тензоры»">
+  <link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="assets/reader.css">
+  <!-- Same renderer as the VS Code preview and the skill's render_preview.py:
+       markdown-it 14.1.0 + markdown-it-texmath 1.0.0 + KaTeX 0.16.11 (vendored). -->
+  <script src="assets/vendor/katex/katex.min.js" defer></script>
+  <script src="assets/vendor/markdown-it/markdown-it.min.js" defer></script>
+  <script src="assets/vendor/texmath/texmath.js" defer></script>
+  <script src="assets/reader.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/">Тензоры</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="sidebar">Лекции</button>
+  </header>
+  <div class="layout">
+    <nav id="sidebar" class="sidebar" aria-label="Лекции">
+      <a class="brand" href="#/">Тензоры</a>
+      <p class="sidebar-label">Лекции</p>
+      <ol id="nav-list"></ol>
+    </nav>
+    <main id="content" class="content" tabindex="-1">
+      <p class="loading">Загрузка…</p>
+      <noscript><p class="error">Для показа конспектов нужен JavaScript. Исходные файлы лежат в репозитории в папке docs/.</p></noscript>
+    </main>
+  </div>
+</body>
+</html>

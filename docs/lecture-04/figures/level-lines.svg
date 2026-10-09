@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 350" width="640" height="350">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#2563a8"/>
+    </marker>
+  </defs>
+  <style>
+    .ink  { stroke: #1a1a1a; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { stroke: #1a1a1a; stroke-width: 1; fill: none; }
+    .grid { stroke: #1a1a1a; stroke-width: 0.6; stroke-opacity: 0.25; fill: none; }
+    .red  { stroke: #c0392b; }
+    .blue { stroke: #2563a8; }
+    .dash { stroke-dasharray: 5 4; }
+    .tint-red  { fill: #c0392b; fill-opacity: 0.10; }
+    .tint-blue { fill: #2563a8; fill-opacity: 0.10; }
+    .tint-grey { fill: #1a1a1a; fill-opacity: 0.05; }
+    .dot  { fill: #1a1a1a; stroke: none; }
+    .dot-red { fill: #c0392b; stroke: none; }
+    .dot-blue { fill: #2563a8; stroke: none; }
+    .deco { stroke: #1a1a1a; stroke-width: 1.1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    text { fill: #1a1a1a; font-family: 'Times New Roman', Times, serif; font-size: 19px; }
+    .m { font-style: italic; }
+    .t { font-style: normal; }
+    .small { font-size: 15px; }
+    .sub { font-size: 13px; }
+    .lbl-red { fill: #c0392b; }
+    .lbl-blue { fill: #2563a8; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <line class="thin red" x1="28.5" y1="340" x2="124.5" y2="20"/>
+  <text class="t lbl-red small" x="130.5" y="34">−3</text>
+  <line class="thin red" x1="103.5" y1="340" x2="199.5" y2="20"/>
+  <text class="t lbl-red small" x="205.5" y="34">−2</text>
+  <line class="thin red" x1="178.5" y1="340" x2="274.5" y2="20"/>
+  <text class="t lbl-red small" x="280.5" y="34">−1</text>
+  <line class="ink red" x1="253.5" y1="340" x2="349.5" y2="20"/>
+  <text class="t lbl-red small" x="355.5" y="34">0</text>
+  <line class="thin red" x1="328.5" y1="340" x2="424.5" y2="20"/>
+  <text class="t lbl-red small" x="430.5" y="34">1</text>
+  <line class="thin red" x1="403.5" y1="340" x2="499.5" y2="20"/>
+  <text class="t lbl-red small" x="505.5" y="34">2</text>
+  <line class="thin red" x1="478.5" y1="340" x2="574.5" y2="20"/>
+  <text class="t lbl-red small" x="580.5" y="34">3</text>
+  <path class="ink" d="M300,185 L396,115" marker-end="url(#arrow)"/>
+  <path class="ink" d="M300,185 L378,175" marker-end="url(#arrow)"/>
+  <path class="ink blue dash" d="M378,175 L396,115" marker-end="url(#arrow-blue)"/>
+  <path class="ink blue" d="M300,185 L318,125" marker-end="url(#arrow-blue)"/>
+  <circle class="dot" cx="300" cy="185" r="3.5"/>
+  <circle class="dot-blue" cx="414" cy="55" r="3.5"/>
+  <text class="m" x="404" y="117">a′</text>
+  <path class="deco" d="M405,102 h9 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="m" x="387" y="195">b′</text>
+  <path class="deco" d="M388,180 h9 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="m lbl-blue" x="292" y="131">v</text>
+  <path class="deco blue" d="M293,116 h9 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="m lbl-blue" x="424" y="61">a′ + v</text>
+  <path class="deco blue" d="M425,46 h9 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <path class="deco blue" d="M457,46 h9 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="t" x="278" y="205">0</text>
+  <path class="deco" d="M279,190 h9 m-3,-2.5 l3,2.5 l-3,2.5"/>
+</svg>

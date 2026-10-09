@@ -1,0 +1,60 @@
+{
+  "skill_name": "lecture-notes",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "write up lecture 1 (индексы) from my handnotes and the recording",
+      "expected_output": "docs/lecture-01.md: full written lecture in the style of raw/examples (header block, numbered sections, Конец лекции 1), faithful to the lecture 1 transcript and handnotes, with SVG figures where they help; preview renders clean; report lists uncertain spots with timestamps.",
+      "files": [],
+      "assertions": [
+        "Lecture file exists at docs/lecture-NN.md",
+        "Title is '# Лекция N. <Тема>'",
+        "Header block has «Необходимые знания» and «О чем лекция»",
+        "Sections are numbered 1, 2, 3, … (## N.)",
+        "Ends with «Конец лекции N.»",
+        "Preview check is clean (no KaTeX errors, missing images, stray $, Cyrillic in math)",
+        "Has at least one figure and every referenced image exists",
+        "Not marked as a draft (no «Черновик» banner)",
+        "Length is 25–70% of the transcript in Markdown chars (example ≈ 50%)",
+        "Report gives places to check with recording timestamps",
+        "Covers the lecture's main topics (Кронекер, Леви-Чивита, перестановочность сумм, немые индексы, симметрия, многоиндексные функции)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Сделай конспект лекции 4 про линейные формы",
+      "expected_output": "Matches handnotes '4 Линейные формы' to transcript folder video_2026-06-13_11-27-55 by content; docs/lecture-04.md full lecture with geometric figures (level lines / plane through origin); preview clean.",
+      "files": [],
+      "assertions": [
+        "Lecture file exists at docs/lecture-NN.md",
+        "Title is '# Лекция N. <Тема>'",
+        "Header block has «Необходимые знания» and «О чем лекция»",
+        "Sections are numbered 1, 2, 3, … (## N.)",
+        "Ends with «Конец лекции N.»",
+        "Preview check is clean (no KaTeX errors, missing images, stray $, Cyrillic in math)",
+        "Has at least one figure and every referenced image exists",
+        "Not marked as a draft (no «Черновик» banner)",
+        "Length is 25–70% of the transcript in Markdown chars (example ≈ 50%)",
+        "Report gives places to check with recording timestamps",
+        "Identifies the transcript video_2026-06-13_11-27-55 (matched by content)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "can you do lecture 17, the tangent space one?",
+      "expected_output": "No transcript exists for lecture 17: docs/lecture-17.md is a draft with the Черновик banner, built only from the handnotes (no invented lecturer commentary), with figures redrawn from the notes; sources map marks it черновик (нет записи).",
+      "files": [],
+      "assertions": [
+        "Lecture file exists at docs/lecture-NN.md",
+        "Title is '# Лекция N. <Тема>'",
+        "Header block has «Необходимые знания» and «О чем лекция»",
+        "Sections are numbered 1, 2, 3, … (## N.)",
+        "Ends with «Конец лекции N.»",
+        "Preview check is clean (no KaTeX errors, missing images, stray $, Cyrillic in math)",
+        "Has at least one figure and every referenced image exists",
+        "Draft banner «Черновик» is present",
+        "Report or source map says there is no transcript for this lecture"
+      ]
+    }
+  ]
+}

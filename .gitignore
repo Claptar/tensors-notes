@@ -1,0 +1,7 @@
+raw
+
+# lecture-notes skill: build leftovers and test runs
+.build/
+__pycache__/
+*-overleaf.zip
+.claude/skills/lecture-notes-workspace/

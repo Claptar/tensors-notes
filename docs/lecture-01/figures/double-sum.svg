@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#2563a8"/>
+    </marker>
+  </defs>
+  <style>
+    .ink  { stroke: #1a1a1a; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { stroke: #1a1a1a; stroke-width: 1; fill: none; }
+    .grid { stroke: #1a1a1a; stroke-width: 0.6; stroke-opacity: 0.25; fill: none; }
+    .red  { stroke: #c0392b; }
+    .blue { stroke: #2563a8; }
+    .dash { stroke-dasharray: 5 4; }
+    .tint-red  { fill: #c0392b; fill-opacity: 0.10; }
+    .tint-blue { fill: #2563a8; fill-opacity: 0.10; }
+    .tint-grey { fill: #1a1a1a; fill-opacity: 0.05; }
+    .dot  { fill: #1a1a1a; stroke: none; }
+    .dot-red { fill: #c0392b; stroke: none; }
+    .dot-blue { fill: #2563a8; stroke: none; }
+    text { fill: #1a1a1a; font-family: 'Times New Roman', Times, serif; font-size: 19px; }
+    .m { font-style: italic; }
+    .t { font-style: normal; }
+    .small { font-size: 15px; }
+    .sub { font-size: 13px; }
+    .lbl-red { fill: #c0392b; }
+    .lbl-blue { fill: #2563a8; }
+    .mid { text-anchor: middle; }
+    .end { text-anchor: end; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <rect class="ink tint-grey" x="249" y="90" width="186" height="132"/>
+  <path class="grid" d="M311,90 L311,222"/>
+  <path class="grid" d="M373,90 L373,222"/>
+  <path class="grid" d="M249,134 L435,134"/>
+  <path class="grid" d="M249,178 L435,178"/>
+  <text class="t mid" x="280" y="119">4</text>
+  <text class="t mid" x="342" y="119">5</text>
+  <text class="t mid" x="404" y="119">6</text>
+  <text class="t mid" x="280" y="163">8</text>
+  <text class="t mid" x="342" y="163">10</text>
+  <text class="t mid" x="404" y="163">12</text>
+  <text class="t mid" x="280" y="207">12</text>
+  <text class="t mid" x="342" y="207">15</text>
+  <text class="t mid" x="404" y="207">18</text>
+  <text class="t mid" x="200" y="119">1</text>
+  <text class="t mid" x="200" y="163">2</text>
+  <text class="t mid" x="200" y="207">3</text>
+  <text class="t mid" x="280" y="66">4</text>
+  <text class="t mid" x="342" y="66">5</text>
+  <text class="t mid" x="404" y="66">6</text>
+  <text class="m" x="138" y="163">a<tspan class="sub" dy="5">i</tspan></text>
+  <text class="m mid" x="342" y="32">b<tspan class="sub" dy="5">j</tspan></text>
+  <path class="ink blue" d="M443,112 L490,112" marker-end="url(#arrow-blue)"/>
+  <text class="t mid lbl-blue" x="516" y="119">15</text>
+  <path class="ink blue" d="M443,156 L490,156" marker-end="url(#arrow-blue)"/>
+  <text class="t mid lbl-blue" x="516" y="163">30</text>
+  <path class="ink blue" d="M443,200 L490,200" marker-end="url(#arrow-blue)"/>
+  <text class="t mid lbl-blue" x="516" y="207">45</text>
+  <text class="m mid lbl-blue" x="516" y="66"><tspan class="t">Σ</tspan><tspan class="sub" dy="6">j</tspan></text>
+  <path class="ink red" d="M280,230 L280,256" marker-end="url(#arrow-red)"/>
+  <text class="t mid lbl-red" x="280" y="280">24</text>
+  <path class="ink red" d="M342,230 L342,256" marker-end="url(#arrow-red)"/>
+  <text class="t mid lbl-red" x="342" y="280">30</text>
+  <path class="ink red" d="M404,230 L404,256" marker-end="url(#arrow-red)"/>
+  <text class="t mid lbl-red" x="404" y="280">36</text>
+  <text class="m mid lbl-red" x="200" y="280"><tspan class="t">Σ</tspan><tspan class="sub" dy="6">i</tspan></text>
+  <path class="ink blue" d="M516,216 L516,256" marker-end="url(#arrow-blue)"/>
+  <path class="ink red" d="M443,273 L490,273" marker-end="url(#arrow-red)"/>
+  <text class="t mid" x="516" y="280" font-weight="bold">90</text>
+</svg>

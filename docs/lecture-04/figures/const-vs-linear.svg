@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#2563a8"/>
+    </marker>
+  </defs>
+  <style>
+    .ink  { stroke: #1a1a1a; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { stroke: #1a1a1a; stroke-width: 1; fill: none; }
+    .grid { stroke: #1a1a1a; stroke-width: 0.6; stroke-opacity: 0.25; fill: none; }
+    .red  { stroke: #c0392b; }
+    .blue { stroke: #2563a8; }
+    .dash { stroke-dasharray: 5 4; }
+    .tint-red  { fill: #c0392b; fill-opacity: 0.10; }
+    .tint-blue { fill: #2563a8; fill-opacity: 0.10; }
+    .tint-grey { fill: #1a1a1a; fill-opacity: 0.05; }
+    .dot  { fill: #1a1a1a; stroke: none; }
+    .dot-red { fill: #c0392b; stroke: none; }
+    .dot-blue { fill: #2563a8; stroke: none; }
+    .deco { stroke: #1a1a1a; stroke-width: 1.1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    text { fill: #1a1a1a; font-family: 'Times New Roman', Times, serif; font-size: 19px; }
+    .m { font-style: italic; }
+    .t { font-style: normal; }
+    .small { font-size: 15px; }
+    .sub { font-size: 13px; }
+    .lbl-red { fill: #c0392b; }
+    .lbl-blue { fill: #2563a8; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <polygon class="ink tint-grey" points="63.8,161.4 213.4,161.4 266.2,108.6 116.6,108.6"/>
+  <line class="thin dash" x1="165" y1="135" x2="165" y2="155.4"/>
+  <path class="ink" d="M165,135 L165,34.7" marker-end="url(#arrow)"/>
+  <polygon class="ink red tint-red" points="63.8,93.4 213.4,93.4 266.2,40.6 116.6,40.6"/>
+  <circle class="dot-red" cx="165" cy="67" r="3.5"/>
+  <text class="m" x="147" y="73">c</text>
+  <circle class="dot" cx="165" cy="135" r="3.5"/>
+  <text class="t" x="147" y="141">0</text>
+  <text class="m" x="39.8" y="163.4">V</text>
+  <polygon class="ink tint-grey" points="380.8,161.4 530.4,161.4 583.2,108.6 433.6,108.6"/>
+  <line class="thin dash" x1="482" y1="135" x2="482" y2="155.4"/>
+  <path class="ink" d="M482,135 L482,34.7" marker-end="url(#arrow)"/>
+  <polygon class="ink red dash tint-red" points="380.8,217.5 521,161.4 443,108.6 433.6,112.3"/>
+  <polygon class="ink red tint-red" points="521,161.4 530.4,157.7 583.2,52.5 443,108.6"/>
+  <line class="ink red" x1="521" y1="161.4" x2="443" y2="108.6"/>
+  <circle class="dot" cx="482" cy="135" r="3.5"/>
+  <text class="t" x="464" y="141">0</text>
+  <text class="m" x="356.8" y="163.4">V</text>
+</svg>

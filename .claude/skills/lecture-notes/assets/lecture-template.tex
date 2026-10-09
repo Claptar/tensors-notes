@@ -1,0 +1,54 @@
+% Preamble for the final .tex of a ТЕНЗОРЫ lecture. scripts/finalize.py fills in the three
+% placeholders; the body is generated from docs/lecture-NN/lecture-NN.md.
+% Overleaf-compatible: compiles with Overleaf's default pdfLaTeX on TeX Live 2026, no project
+% settings to change. Fonts are Computer Modern + cm-super (T2A), the same as the
+% "Лекция 1. Индексы" example.
+\documentclass[11pt,a4paper]{article}
+\usepackage{cmap}                 % searchable/copyable Cyrillic in the PDF
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[a4paper,left=2.2cm,right=2.2cm,top=2.6cm,bottom=2.4cm,headsep=0.8cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[font=small,justification=centering]{caption}
+\usepackage{array}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{ТЕНЗОРЫ}
+\fancyhead[R]{%%RUNNING%%}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\setlength{\parindent}{1.5em}
+\setlist{nosep, leftmargin=2em}
+\renewcommand{\arraystretch}{1.15}
+
+% Shorthands KaTeX knows natively, so drafts may use them. (\C is taken by T2A, so it is
+% left out; write \mathbb{C}.)
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+
+% Header block: "Необходимые знания" / "О чем лекция".
+\newenvironment{lectureabout}{\begin{list}{}{\leftmargin=2.2em\rightmargin=2.2em}\small\item[]}{\end{list}\medskip}
+% Banner for drafts written without a transcript.
+\newenvironment{draftnote}{\begin{center}\begin{minipage}{0.9\textwidth}\small\hrule\smallskip}{\smallskip\hrule\end{minipage}\end{center}}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries %%TITLE%%}
+\end{center}
+\medskip
+
+%%BODY%%
+
+\end{document}
