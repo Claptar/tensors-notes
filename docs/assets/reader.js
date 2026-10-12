@@ -7,6 +7,13 @@
   const HOME = "README.md";
   const LECTURE_PATH = /^(lecture-\d+)\/\1\.md$/;          // lecture-04/lecture-04.md
   const ROOT = new URL("./", location.origin + location.pathname);
+  const CALLOUTS = [
+    [/^Идея\./, "idea"],
+    [/^Вопрос\s*\d+/, "question"],
+    [/^(Замечание редактора|Замечание|Предупреждение|Забегая вперёд|Забегая вперед)\./, "aside"],
+    [/^Черновик/, "draft"],
+  ];
+  const IDEAS_KEY = "tensors.hideIdeas";
 
   // Identical configuration to scripts/render_preview.py, so the site shows what the checks saw.
   const md = window.markdownit({ html: true, linkify: false, typographer: false })
@@ -53,8 +60,11 @@
       const only = p.children.length === 1 && p.firstElementChild.tagName === "EM" && p.textContent.trim() === p.firstElementChild.textContent.trim();
       if (only && /^Рис\.\s*\d/.test(p.textContent.trim())) p.classList.add("figcaption");
     });
+    // Callouts are blockquotes that open with a label (see the skill's SKILL.md):
+    // «Идея.» and «Вопрос N» exist only while a lecture is a draft under review.
     box.querySelectorAll("blockquote").forEach((q) => {
-      if (/^Черновик/.test(q.textContent.trim())) q.classList.add("draft");
+      const t = q.textContent.trim();
+      for (const [re, cls] of CALLOUTS) if (re.test(t)) { q.classList.add(cls); break; }
     });
     return box;
   }
@@ -116,6 +126,30 @@
     return nav;
   }
 
+  // Draft lectures carry an «Идея» callout before each paragraph, for the lecturer to check.
+  // Readers can hide them; the choice is remembered per browser (storage may be unavailable).
+  function ideasHidden() {
+    try { return localStorage.getItem(IDEAS_KEY) === "1"; } catch { return false; }
+  }
+  function ideasToggle() {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "ideas-toggle";
+    const sync = () => {
+      const hidden = document.body.classList.contains("hide-ideas");
+      b.textContent = hidden ? "Показать идеи абзацев" : "Скрыть идеи абзацев";
+      b.setAttribute("aria-pressed", String(hidden));
+    };
+    document.body.classList.toggle("hide-ideas", ideasHidden());
+    sync();
+    b.addEventListener("click", () => {
+      const hidden = document.body.classList.toggle("hide-ideas");
+      try { localStorage.setItem(IDEAS_KEY, hidden ? "1" : "0"); } catch { /* not persisted */ }
+      sync();
+    });
+    return b;
+  }
+
   function show(nodes, title) {
     content.replaceChildren(...nodes);
     document.title = title ? `${title} — Тензоры` : "Тензоры — конспекты лекций";
@@ -148,11 +182,16 @@
       const article = render(await fetchText(mdPath), mdPath);
       const h1 = article.querySelector("h1");
       const pdf = await pdfLink(slug);
-      if (h1 && pdf) {
+      const ideas = article.querySelectorAll("blockquote.idea").length;
+      if (h1 && (pdf || ideas)) {
         const links = document.createElement("p");
         links.className = "doc-links";
-        links.innerHTML = `<a>PDF</a>`;
-        links.firstElementChild.href = pdf;
+        if (pdf) {
+          const a = document.createElement("a");
+          a.href = pdf; a.textContent = "PDF";
+          links.appendChild(a);
+        }
+        if (ideas) links.appendChild(ideasToggle());
         h1.after(links);
       }
       show([...article.childNodes, pager(slug)], h1 ? h1.textContent.trim() : slug);
