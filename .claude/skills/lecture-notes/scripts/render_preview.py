@@ -14,7 +14,9 @@ The preview PDF never goes next to the .md, because that's where the final PDF l
 
 Prints a report: every formula KaTeX could not parse (with the error and the source),
 every image that failed to load, and leftover literal `$` that probably meant broken
-math. Exit code is 1 if anything is wrong, 0 if the document is clean.
+math. Exit code is 1 if anything is wrong, 0 if the document is clean. It also prints a
+one-line summary of lint_text.py's text checks (ideas, open questions, register), which
+don't affect the exit code. Callouts (Идея, Вопрос, side remarks) look as on the website.
 """
 
 import argparse
@@ -58,6 +60,13 @@ hr { border: none; border-top: 0.6pt solid #000; margin: 16pt 0 6pt; }
 section { margin: 8pt 0; overflow-x: auto; } eqn { display: block; text-align: center; }
 .katex-display { margin: 6pt 0; }
 .katex-error { background: #ffd6d6; }
+/* Callouts, as on the website (docs/assets/reader.css). Side remarks: like a caption. */
+blockquote.aside { margin: 6pt 8mm 8pt; color: #555; font-size: 9.5pt; }
+blockquote.idea, blockquote.question { margin: 10pt 0 4pt; padding: 4pt 8pt; border-radius: 4pt;
+  font: 8.5pt/1.4 -apple-system, 'Helvetica Neue', Arial, sans-serif; break-inside: avoid; }
+blockquote.idea { background: #edf2f6; border-left: 2.5pt solid #7d9fb9; break-after: avoid; }
+blockquote.question { background: #fbf0d9; border-left: 2.5pt solid #c98a1b; }
+blockquote.idea p, blockquote.question p { margin: 0; text-align: left; }
 """
 
 PAGE = """<!doctype html>
@@ -77,6 +86,13 @@ try {
     .use(texmath, {engine: katex, delimiters: 'dollars',
                    katexOptions: {throwOnError: false, strict: false, errorColor: '#cd0a0b'}});
   document.getElementById('doc').innerHTML = md.render(SRC);
+  // Same callout classes as the website's reader.js.
+  const CALLOUTS = [[/^Идея\\./, 'idea'], [/^Вопрос\\s*\\d+/, 'question'],
+    [/^(Замечание редактора|Замечание|Предупреждение|Забегая вперёд|Забегая вперед)\\./, 'aside']];
+  document.querySelectorAll('blockquote').forEach(q => {
+    const t = q.textContent.trim();
+    for (const [re, cls] of CALLOUTS) if (re.test(t)) { q.classList.add(cls); break; }
+  });
 } catch (e) { report.fatal = String(e); }
 document.querySelectorAll('.katex-error').forEach(el =>
   report.katex_errors.push({error: el.getAttribute('title') || '', source: el.textContent.slice(0, 200)}));
@@ -167,6 +183,17 @@ def main():
         why = text_problem(line)
         if why:
             print(f"NOT LATEX-SAFE: {why}: {line.strip()[:80]}"); problems += 1
+    # The text checks (lint_text.py) are candidates, not errors: summarised here, not counted —
+    # except display math split over lines inside a callout, which renders wrongly on the site.
+    from lint_text import lint
+    t = lint(md_path)
+    for line in t.callout_math:
+        print(f"MATH IN CALLOUT (line {line}): write it on one line, `> $$ … $$`; split over lines it shows a literal '>'")
+        problems += 1
+    idea_part = f"{len(t.no_idea)} paragraph(s) without an Идея" if t.ideas else "no Идея callouts"
+    print(f"Text checks: {idea_part}, {len(t.questions)} open question(s), {len(t.register)} register "
+          f"candidate(s), {len(t.before_def)} term(s) before definition, {len(t.short)} short sentence(s). "
+          f"Details: python3 {Path(__file__).with_name('lint_text.py')} {a.markdown}")
     print("OK: all math rendered, all images loaded." if not problems else f"{problems} problem(s).")
     sys.exit(1 if problems else 0)
 

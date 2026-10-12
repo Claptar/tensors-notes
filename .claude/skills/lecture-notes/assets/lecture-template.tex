@@ -17,6 +17,7 @@
 \usepackage{array}
 \usepackage{cancel}
 \usepackage{enumitem}
+\usepackage{xcolor}
 \usepackage[hidelinks]{hyperref}
 
 \pagestyle{fancy}
@@ -39,6 +40,14 @@
 
 % Header block: "Необходимые знания" / "О чем лекция".
 \newenvironment{lectureabout}{\begin{list}{}{\leftmargin=2.2em\rightmargin=2.2em}\small\item[]}{\end{list}\medskip}
+% Side remarks («Замечание.», «Предупреждение.», «Забегая вперёд.»): material that belongs
+% here but doesn't carry the main line. Set like a figure caption — smaller, lighter, slightly
+% indented — never boxed (boxes are kept for the rare thing the author marks as essential).
+% (Style A of the options shown to the author with lecture 1; replace if another is chosen.)
+\definecolor{asideink}{gray}{0.33}
+\newenvironment{aside}%
+  {\begin{list}{}{\leftmargin=1.5em\rightmargin=1.5em\topsep=0.6ex\parsep=0.4ex}\small\color{asideink}\item[]}%
+  {\end{list}}
 % Banner for drafts written without a transcript.
 \newenvironment{draftnote}{\begin{center}\begin{minipage}{0.9\textwidth}\small\hrule\smallskip}{\smallskip\hrule\end{minipage}\end{center}}
 

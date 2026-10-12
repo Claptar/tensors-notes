@@ -5,6 +5,7 @@
     python3 finalize.py docs/lecture-04/lecture-04.md --tex-only      # convert, don't compile
     python3 finalize.py docs/lecture-04/lecture-04.md --overleaf-zip  # also lecture-04-overleaf.zip for upload
     python3 finalize.py docs/lecture-04/lecture-04.md --force         # overwrite a .tex edited by hand
+    python3 finalize.py docs/lecture-04/lecture-04.md --strip-ideas   # also remove the Идея callouts from the .md
 
 Each lecture lives in one folder: lecture-NN.md, figures/ (SVG + the .py that draws each),
 and, after this script, lecture-NN.tex and lecture-NN.pdf. The folder is an Overleaf-ready
@@ -16,9 +17,17 @@ What it does:
   2. converts the Markdown to LaTeX using assets/lecture-template.tex. It understands the
      Markdown subset described in references/style.md: title, header block, numbered
      sections, paragraphs with $math$, $$display$$, tables, figures with a "*Рис. N. …*"
-     caption line, lists, HTML comments (kept as % comments), and the end mark;
+     caption line, lists, HTML comments (kept as % comments), and the end mark. Callouts
+     (blockquotes opening with a label, see SKILL.md): side remarks («Замечание.»,
+     «Предупреждение.», «Забегая вперёд.», «Замечание редактора.») become the `aside`
+     environment; «Идея.» callouts are draft-only and are left out;
   3. compiles exactly as Overleaf does by default: pdfLaTeX via latexmk on TeX Live 2026
      (full scheme), in the official texlive/texlive Docker image pinned by digest.
+
+It refuses to run while the draft has open «Вопрос N» callouts or old <!-- ПРОВЕРИТЬ -->
+markers: those are questions for the user or the lecturer, and the final version must not
+carry a guess. With --strip-ideas it also removes the Идея callouts from the .md itself, for
+when the user has approved the lecture (git keeps them in the history).
 
 The .md stays the source of truth. The generated .tex ends with a checksum line; if the .tex
 was edited by hand since it was generated, the script stops instead of overwriting it.
@@ -41,6 +50,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _chrome import run_chrome  # noqa: E402
+from lint_text import ASIDE_RE, IDEA_RE, QUESTION_RE, blocks_of  # noqa: E402
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE = SKILL_DIR / "assets" / "lecture-template.tex"
@@ -239,10 +249,16 @@ def convert(md, md_path, fig_pdf):
             paras = [p.replace("\n", " ").strip() for p in re.split(r"\n\s*\n", "\n".join(buf)) if p.strip()]
             body = "\n\n".join(inline(p) for p in paras)
             joined = " ".join(paras)
+            if IDEA_RE.match(joined):
+                continue                       # draft-only: what the paragraph is for, for the lecturer
+            if QUESTION_RE.match(joined):      # main() refuses before we get here; belt and braces
+                raise SystemExit(f"ERROR: open question left in the draft: {joined[:80]}")
             if "Необходимые знания" in joined or "О чем лекция" in joined or "О чём лекция" in joined:
                 out.append("\\begin{lectureabout}\n" + body.replace("\n\n", "\n\n\\smallskip\n") + "\n\\end{lectureabout}")
             elif joined.startswith("**Черновик"):
                 out.append("\\begin{draftnote}\n" + body + "\n\\end{draftnote}")
+            elif ASIDE_RE.match(joined):
+                out.append("\\begin{aside}\n" + body + "\n\\end{aside}")
             else:
                 out.append("\\begin{quote}\n" + body + "\n\\end{quote}")
             continue
@@ -474,9 +490,35 @@ def main():
     ap.add_argument("--tex-only", action="store_true")
     ap.add_argument("--overleaf-zip", action="store_true", help="also write lecture-NN-overleaf.zip in the lecture folder")
     ap.add_argument("--force", action="store_true", help="overwrite a hand-edited .tex")
+    ap.add_argument("--strip-ideas", action="store_true",
+                    help="remove the Идея callouts from the .md (after the user approves the lecture)")
     a = ap.parse_args()
 
     md_path = Path(a.markdown).resolve()
+    source = md_path.read_text(encoding="utf-8")
+    blocks = blocks_of(source)
+    open_q = [b for b in blocks if b.kind == "question"]
+    old_q = [b for b in blocks if b.kind == "comment" and "ПРОВЕРИТЬ" in b.text]
+    if open_q or old_q:
+        print("ERROR: the draft still has open questions. Ask the user (or have the lecturer answer them),")
+        print("apply the answers in the .md, delete the callouts, and run again:")
+        for b in open_q + old_q:
+            print(f"  line {b.line}: {b.text.replace(chr(10), ' ')[:110]}")
+        sys.exit(1)
+    if a.strip_ideas:
+        lines = source.splitlines(keepends=True)
+        drop = set()
+        for b in blocks:
+            if b.kind == "idea":
+                k = b.line - 1
+                while k < len(lines) and lines[k].strip().startswith(">"):
+                    drop.add(k)
+                    k += 1
+                if k < len(lines) and not lines[k].strip():
+                    drop.add(k)             # the blank line after the callout
+        source = "".join(l for k, l in enumerate(lines) if k not in drop)
+        md_path.write_text(source, encoding="utf-8")
+        print(f"Removed {sum(b.kind == 'idea' for b in blocks)} Идея callout(s) from {md_path.name}")
     tex_dir = Path(a.tex_dir).resolve() if a.tex_dir else md_path.parent
     pdf_dir = Path(a.pdf_dir).resolve() if a.pdf_dir else md_path.parent
     tex_dir.mkdir(parents=True, exist_ok=True)
@@ -507,7 +549,7 @@ def main():
         w, _ = svg_size(svg.read_text(encoding="utf-8"))
         return rel.as_posix(), min(1.0, w / 760.0)
 
-    title, body = convert(md_path.read_text(encoding="utf-8"), md_path, fig_pdf)
+    title, body = convert(source, md_path, fig_pdf)
     running = re.sub(r"\s+", " ", title)
     tex = (TEMPLATE.read_text(encoding="utf-8")
            .replace("%%TITLE%%", inline(title))

@@ -1,21 +1,15 @@
 # Style and format
 
-Contents: 1. Voice · 2. Document skeleton · 3. Markdown and math rules · 4. Russian typography · 5. Transcript → text, a worked example · 6. The target: opening of lecture 1 in Markdown
+Contents: 1. Voice · 2. Document skeleton · 3. Markdown and math rules · 4. Russian typography · 5. Callouts in drafts · 6. Format example: the opening of lecture 1
 
 ## 1. Voice
 
-The text reads as if the lecturer had sat down and written the lecture out carefully. It is not an account of the lecture ("лектор отметил…") and not a textbook by someone else.
+The register is a book's, not a lecture's: read `register.md` (what to transform, what to keep, before/after examples) and `author-rulings.md` (what the author has decided) every time. The typographic conventions that go with it:
 
-- First person plural and impersonal constructions: «Рассмотрим…», «Заметим, что…», «Следует понимать…», «мы будем называть…». Present tense.
-- Keep the lecturer's characteristic moves, because they are the course's pedagogy:
-  - the analogy with ordinary functions on $\mathbb{R}$ ("в полной аналогии с $h(x) = f(x)g(x)$");
-  - questions that drive the argument ("Что за объект должен стоять в правой части равенства?");
-  - warnings and forward references: «**Предупреждение:** …», «Забегая вперёд, скажем…»;
-  - the insistence that nothing is magic: "это утомительно, но *концептуально просто*".
 - Definitions put the defined term in **bold** in the sentence that defines it: «**Индексной функцией** называется любое отображение $a\colon I \to \mathbb{R}$». Use *italics* for emphasis, sparingly.
-- Remarks and proofs stay in prose: «*Замечание.*», «*Доказательство.*» … «что и завершает доказательство.»
-- Cut everything that belongs to speech rather than writing: «ну», «вот», «короче», «как бы», «поставьте плюсики», «я сегодня устал», repeated restarts, "понятно, да?".
-- Prose, not bullet points. A list is fine for a genuine enumeration (three properties, four cases). It is not a substitute for an explanation.
+- Proofs stay in prose: «*Доказательство.*» … «что и завершает доказательство.»
+- Side remarks («Замечание», «Предупреждение», «Забегая вперёд») are callouts, see §5: they are set apart typographically, so the main line stays linear.
+- Prose, not bullet points. A list is fine for a genuine enumeration (three properties, four cases); it is not a substitute for an explanation.
 
 ## 2. Document skeleton
 
@@ -46,7 +40,8 @@ The text reads as if the lecturer had sat down and written the lecture out caref
 - **Необходимые знания**: what the lecture actually relies on, both general mathematics and earlier lectures (name them).
 - **О чем лекция**: the topics as noun phrases, one or two sentences.
 - Sections are numbered `## 1.`, `## 2.`, … and subsections `### 2.1.` in sequence. The LaTeX build renumbers automatically and warns if your numbers disagree.
-- For a draft, the banner goes right under the title (see SKILL.md).
+- For a draft written without a transcript, the banner goes right under the title (see SKILL.md).
+- In every draft under review, each paragraph is preceded by its «Идея» callout (§5).
 
 ## 3. Markdown and math rules
 
@@ -56,6 +51,7 @@ The draft is read in VS Code's preview (markdown-it + KaTeX) and later converted
 - Inline: `$a_i$`, with no space just inside the dollars (`$ a_i $` does not render).
 - Display: `$$` on its own line, the formula, `$$` on its own line, with a blank line before and after. In LaTeX the formula still stays inside the sentence: text after it that starts in lower case continues the paragraph.
 - Cyrillic inside formulas only within `\text{…}`: `\underbrace{(1,2,3)}_{\text{чётные}}`. Other symbols as commands, never as Unicode: `\alpha`, `\varepsilon`, `\to`, `\le`, `\in`, `\infty`. The final build is pdfLaTeX, as on Overleaf. KaTeX renders `ε` or `→` happily and pdfLaTeX stops on them, and the same holds for Greek letters or arrows typed into running text: put them in `$…$`. `render_preview.py` flags all of these as `NOT LATEX-SAFE`.
+- Inside a callout (a blockquote: side remark, Идея, Вопрос), display math goes on **one line**: `> $$\int_\tau^t \frac{dt'}{t'}.$$`. Split over several `>` lines, the website and VS Code show a literal `>` in the formula (markdown-it-texmath reads the raw lines); `render_preview.py` and `lint_text.py` flag it as MATH IN CALLOUT.
 - Allowed inside `$$`: `aligned`, `gathered`, `cases`, `array`, `matrix` / `pmatrix` / `bmatrix` / `vmatrix`. Don't use `\begin{equation}`, `align`, `\label`, `\eqref` or `\newcommand`. To refer to a formula, add `\tag{3}` inside it and write «(3)» in the text.
 - `\colon` for maps (`f\colon X \to Y`), `\varepsilon`, `\ell`, `\mathbb{R}`, `\dots` / `\cdots`, `\equiv` for "по определению" as in the example.
 - Vectors and indices: follow the handnotes and the previous lectures (e.g. $\vec a$, $\vec e_i$ if that is what the lecturer writes). Once the course uses upper and lower indices, keep their placement exactly; it carries meaning.
@@ -74,7 +70,8 @@ The draft is read in VS Code's preview (markdown-it + KaTeX) and later converted
 **Text**
 - Bold `**…**` and italic `*…*` only (no underscores for emphasis).
 - Markdown tables are fine for simple value tables. Inside a table cell write `\vert` or `\mid` instead of `|` in math.
-- No raw HTML except comments. Comments carry the `<!-- ПРОВЕРИТЬ 00:41:12: … -->` markers, on their own line.
+- No raw HTML except comments (notes to yourself, on their own line). Anything the lecturer or the user must see or decide goes in a «Вопрос» callout (§5), not in a comment.
+- Blockquotes are only for the header block, the draft banner and callouts (§5).
 
 **Figures**
 
@@ -94,21 +91,28 @@ The image goes on its own line. The caption is the next paragraph, wholly in ita
 - Abbreviations with a space: «т. е.», «т. д.», «и т. п.».
 - Decimal comma in math: `$3{,}14$`.
 
-## 5. Transcript → text, a worked example
+## 5. Callouts in drafts
 
-The transcript (lecture 1, about 10 minutes in; Whisper output, unpunctuated):
+A callout is a blockquote whose first words are a label. One convention serves VS Code (a plain blockquote), the website and the preview (styled by label), and `finalize.py` (handled by label).
 
-> есть понятие функция функция то в принципе такое школьное знание в на первом курсе его обобщают говорят это словом отображения … функция обычно называют отображение из множества чисел множество чисел … Как мы задаем вот обычные функции, которые в девятом классе вы проходили там дорам написали f от x равно x квадрат что-то значит это значит что если мы берем число x ему соответствие ставится число x квадрата вот почему именно x никакого разницы нет вот нам надо четко понимать что f это название функции x никакого отношения к этой функции не имеет то есть если я напишу f от y равно y квадрат то это будет описание той же самой функции … значит это важно это реально важно … у нас из физики кто вот физикой занимается у нас проблема большая потому что мы достаточно часто пишем функции одной и той же буквой … если вы занимаетесь какой-то там термодинамикой то мы можете часто писать pt и там пэт в и как-то приравнивать это все разные вещи … ну так все же все понимаю да поставьте плюсики …
+```markdown
+> **Идея.** Сумма значений индексной функции — число; в этом и состоит аналогия с определённым интегралом. *(00:48:12–00:50:20)*
 
-What the finished lecture made of it (section 1 below):
-- Kept the idea and its weight: the name of the function is $f$, the letter $x$ means nothing on its own. "Это реально важно" becomes the firm statement «Следует понимать…» and the counterexample «$f(x) = y^2$ — бессмыслица», which was crossed out in the handnotes.
-- Kept the lecturer's physics aside, reconstructed from the garbled «pt и там пэт в» as $p(T, V)$ against $p(T, S)$, and turned it into a stated convention for the course: «Этим удобством мы дальше злоупотреблять не будем».
-- Dropped the school reminiscences, "поставьте плюсики", and the repetition.
-- Promoted the informal "отображение — это когда спарили элементы" to a proper definition, because the lecturer was clearly giving one.
+Сумма значений индексной функции — число, так же как …
 
-## 6. The target: opening of lecture 1 in Markdown
+> **Вопрос 2.** (00:41:03) В записи «визуализировать лучше … табличкой, которая левая». Понято как таблица-список. Варианты: а) таблица-список; б) двумерная таблица.
 
-This is the finished "Лекция 1. Индексы" (the PDF in `raw/examples/`) as it looks in this Markdown format. Match its density, tone and precision.
+> *Замечание.* Полезно переформулировать знакомые понятия на строгом языке множеств и отображений. …
+```
+
+- **`> **Идея.** …`** — draft only. One sentence: what the next paragraph establishes (not a summary of its words), with the transcript time it comes from. One before every new paragraph, side remarks included; not before figures, captions or a paragraph that continues after a display formula (it starts in lower case). The lecturer reads these to check that the main idea was understood; when they correct one, rewrite the paragraph from the corrected idea. Left out of the .tex/.pdf; removed from the .md when the lecture is approved (`finalize.py --strip-ideas`).
+- **`> **Вопрос N.** (hh:mm:ss) …`** — draft only. Numbers are stable identifiers the lecturer and the user refer to: a new question takes the next free number, even when it sits earlier in the text, and answered numbers are not reused. A question meant for the user rather than the lecturer (when you can't ask them directly, e.g. as a subagent) is labelled `> **Вопрос N (для пользователя).** …`. Something only the lecturer (or the user) can settle: a garbled passage, two possible readings, a term, a proposal that goes beyond the lecture. Say what is unclear and give the options; the text meanwhile carries the most defensible version. Numbered through the lecture. `finalize.py` refuses to run while one is left. (These replace the old invisible `<!-- ПРОВЕРИТЬ … -->` comments: the lecturer reads the rendered page and must see them.)
+- **Statements set apart** — a paragraph opening with **Определение.**, **Лемма.**, **Теорема.** or *Доказательство.* — are paragraphs like any other: the statement gets its Идея (what it states), the proof its own (how it goes).
+- **`> *Замечание.* …`, `> *Предупреждение.* …`, `> *Забегая вперёд.* …`, `> *Замечание редактора.* …`** — side remarks, part of the book: material that belongs here but doesn't carry the main line (a bridge to other knowledge, a caution, a forward reference to tensors, a physics aside). Set smaller and lighter, like a figure caption; never boxed. «Замечание редактора» marks our own addition in a draft; when the author accepts it, relabel it «Замечание».
+
+## 6. Format example: the opening of lecture 1
+
+The original "Лекция 1. Индексы" (the PDF in `raw/examples/`) as it looks in this Markdown format — header block, display math, a value table, a figure with its caption. Use it for format. For register, `register.md` and `author-rulings.md` take precedence: this text predates the author's review (e.g. its «Сегодня» is lecture-time phrasing the book now avoids), and the current `docs/lecture-01/lecture-01.md` is the reviewed version.
 
 ```markdown
 # Лекция 1. Индексы
