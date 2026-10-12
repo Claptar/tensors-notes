@@ -14,7 +14,7 @@ total = sum(row_sums)
 assert total == sum(col_sums) == sum(a) * sum(b)
 
 W, H = 640, 300
-DX = 40                     # общий сдвиг вправо, чтобы центрировать рисунок
+DX = 0                      # общий сдвиг; ниже подбирается так, чтобы рисунок был по центру
 CW, CH = 62, 44
 HX = 160 + DX               # столбец заголовков a_i
 CX = [240 + DX + CW * j for j in range(n)]
@@ -22,6 +22,11 @@ SX = 476 + DX               # столбец сумм по j
 HY = 66                     # строка заголовков b_j (базовая линия)
 CY = [112 + CH * i for i in range(n)]
 SY = 280                    # строка сумм по i (базовая линия)
+
+# Центрирование: содержимое занимает от угловой подписи (HX - 34) до столбца сумм (SX + 30).
+shift = W / 2 - ((HX - 34) + (SX + 30)) / 2
+HX, SX = HX + shift, SX + shift
+CX = [x + shift for x in CX]
 
 left, right = CX[0] - CW / 2, CX[-1] + CW / 2
 top, bottom = CY[0] - CH / 2, CY[-1] + CH / 2
@@ -46,8 +51,11 @@ for i in range(n):
     body.append(f'  <text class="t mid" x="{f(HX)}" y="{f(CY[i] + 7)}">{a[i]}</text>')
 for j in range(n):
     body.append(f'  <text class="t mid" x="{f(CX[j])}" y="{f(HY)}">{b[j]}</text>')
-body.append(f'  <text class="m" x="{f(HX - 62)}" y="{f(CY[1] + 7)}">a<tspan class="sub" dy="5">i</tspan></text>')
-body.append(f'  <text class="m mid" x="{f(CX[1])}" y="{f(HY - 34)}">b<tspan class="sub" dy="5">j</tspan></text>')
+# Подписи a_i и b_j — в левом верхнем углу, на пересечении строки и столбца заголовков,
+# разделённые диагональю (как в углу таблицы), чтобы ничего не выступало за прямоугольник.
+body.append(f'  <path class="thin" d="M{f(HX - 30)},{f(HY - 30)} L{f(HX + 30)},{f(HY + 14)}" stroke-opacity="0.45"/>')
+body.append(f'  <text class="m" x="{f(HX + 2)}" y="{f(HY - 10)}">b<tspan class="sub" dy="5">j</tspan></text>')
+body.append(f'  <text class="m end" x="{f(HX - 4)}" y="{f(HY + 14)}">a<tspan class="sub" dy="5">i</tspan></text>')
 
 # суммы по j (строки) — синий столбец справа
 for i in range(n):

@@ -34,53 +34,51 @@
     .end { text-anchor: end; }
   </style>
   <rect width="100%" height="100%" fill="#ffffff"/>
-  <rect class="tint-red" x="44" y="54" width="128" height="34" rx="8"/>
-  <rect class="tint-red" x="212" y="54" width="32" height="120" rx="8"/>
-  <rect class="tint-red" x="306" y="54" width="40" height="34" rx="8"/>
-  <text class="t mid" x="64" y="80">1</text>
-  <text class="t mid" x="108" y="80">2</text>
-  <text class="t mid" x="152" y="80">3</text>
-  <text class="t mid" x="228" y="80">3</text>
-  <text class="t mid lbl-red" x="326" y="80">26</text>
-  <text class="t mid" x="64" y="122">4</text>
-  <text class="t mid" x="108" y="122">5</text>
-  <text class="t mid" x="152" y="122">6</text>
-  <text class="t mid" x="228" y="122">4</text>
-  <text class="t mid" x="326" y="122">62</text>
-  <text class="t mid" x="64" y="164">7</text>
-  <text class="t mid" x="108" y="164">8</text>
-  <text class="t mid" x="152" y="164">9</text>
-  <text class="t mid" x="228" y="164">5</text>
-  <text class="t mid" x="326" y="164">98</text>
-  <path class="ink" d="M47,52 Q29,118 47,184"/>
-  <path class="ink" d="M169,52 Q187,118 169,184"/>
-  <path class="ink" d="M215,52 Q197,118 215,184"/>
-  <path class="ink" d="M241,52 Q259,118 241,184"/>
-  <path class="ink" d="M309,52 Q291,118 309,184"/>
-  <path class="ink" d="M343,52 Q361,118 343,184"/>
-  <text class="t mid" x="279.0" y="122">=</text>
-  <text class="m end" x="418" y="46">j<tspan class="t">:</tspan></text>
-  <text class="t small mid" x="440" y="46" fill-opacity="0.7">1</text>
-  <text class="t mid" x="440" y="80">1</text>
-  <text class="t mid" x="440" y="122">3</text>
-  <text class="t mid" x="440" y="170">3</text>
-  <path class="thin" d="M440,88 L440,100" stroke-opacity="0.5"/>
-  <text class="t small mid" x="492" y="46" fill-opacity="0.7">2</text>
-  <text class="t mid" x="492" y="80">2</text>
-  <text class="t mid" x="492" y="122">4</text>
-  <text class="t mid" x="492" y="170">8</text>
-  <path class="thin" d="M492,88 L492,100" stroke-opacity="0.5"/>
-  <text class="t small mid" x="544" y="46" fill-opacity="0.7">3</text>
-  <text class="t mid" x="544" y="80">3</text>
-  <text class="t mid" x="544" y="122">5</text>
-  <text class="t mid" x="544" y="170">15</text>
-  <path class="thin" d="M544,88 L544,100" stroke-opacity="0.5"/>
-  <text class="t mid" x="466.0" y="170">+</text>
-  <text class="t mid" x="518.0" y="170">+</text>
-  <path class="thin" d="M418,140 L566,140"/>
-  <text class="t" x="572" y="170">=</text>
-  <text class="t lbl-red" x="594" y="170" font-weight="bold">26</text>
-  <text class="m" x="578" y="80">a<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan></text>
-  <text class="m" x="578" y="122">b<tspan class="sub" dy="5">j</tspan></text>
-  <path class="thin dash" d="M228,194 C248,242 390,242 410,126" marker-end="url(#arrow)"/>
+  <rect class="tint-red" x="50" y="60" width="116" height="32" rx="7"/>
+  <rect class="tint-red" x="224" y="60" width="24" height="116" rx="7"/>
+  <rect class="tint-red" x="319" y="60" width="30" height="32" rx="7"/>
+  <text class="t mid" x="64" y="84">1</text>
+  <text class="t mid" x="108" y="84">2</text>
+  <text class="t mid" x="152" y="84">3</text>
+  <text class="t mid" x="236" y="84">3</text>
+  <text class="t mid lbl-red" x="334" y="84">26</text>
+  <text class="t mid" x="64" y="126">4</text>
+  <text class="t mid" x="108" y="126">5</text>
+  <text class="t mid" x="152" y="126">6</text>
+  <text class="t mid" x="236" y="126">4</text>
+  <text class="t mid" x="334" y="126">62</text>
+  <text class="t mid" x="64" y="168">7</text>
+  <text class="t mid" x="108" y="168">8</text>
+  <text class="t mid" x="152" y="168">9</text>
+  <text class="t mid" x="236" y="168">5</text>
+  <text class="t mid" x="334" y="168">98</text>
+  <path class="ink" d="M44,50 Q26,120 44,190"/>
+  <path class="ink" d="M172,50 Q190,120 172,190"/>
+  <path class="ink" d="M218,50 Q200,120 218,190"/>
+  <path class="ink" d="M254,50 Q272,120 254,190"/>
+  <path class="ink" d="M313,50 Q295,120 313,190"/>
+  <path class="ink" d="M355,50 Q373,120 355,190"/>
+  <text class="t mid" x="289.0" y="126">=</text>
+  <rect class="tint-red" x="470" y="71" width="32" height="106" rx="7"/>
+  <rect class="tint-red" x="524" y="71" width="32" height="106" rx="7"/>
+  <text class="m mid" x="432" y="58">j</text>
+  <text class="m mid" x="486" y="58">a<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan></text>
+  <text class="m mid" x="540" y="58">b<tspan class="sub" dy="5">j</tspan></text>
+  <text class="m mid" x="600" y="58">a<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan><tspan dy="-5">b</tspan><tspan class="sub" dy="5">j</tspan></text>
+  <path class="thin" d="M412,72 L632,72"/>
+  <text class="t mid" x="432" y="96" fill-opacity="0.7">1</text>
+  <text class="t mid" x="486" y="96">1</text>
+  <text class="t mid" x="540" y="96">3</text>
+  <text class="t mid" x="600" y="96">3</text>
+  <text class="t mid" x="432" y="132" fill-opacity="0.7">2</text>
+  <text class="t mid" x="486" y="132">2</text>
+  <text class="t mid" x="540" y="132">4</text>
+  <text class="t mid" x="600" y="132">8</text>
+  <text class="t mid" x="432" y="168" fill-opacity="0.7">3</text>
+  <text class="t mid" x="486" y="168">3</text>
+  <text class="t mid" x="540" y="168">5</text>
+  <text class="t mid" x="600" y="168">15</text>
+  <path class="thin" d="M574,182 L626,182"/>
+  <text class="t end" x="570" y="214">Σ =</text>
+  <text class="t mid lbl-red" x="600" y="214" font-weight="bold">26</text>
 </svg>
