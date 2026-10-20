@@ -15,8 +15,9 @@ The preview PDF never goes next to the .md, because that's where the final PDF l
 Prints a report: every formula KaTeX could not parse (with the error and the source),
 every image that failed to load, and leftover literal `$` that probably meant broken
 math. Exit code is 1 if anything is wrong, 0 if the document is clean. It also prints a
-one-line summary of lint_text.py's text checks (ideas, open questions, register), which
-don't affect the exit code. Callouts (Идея, Вопрос, side remarks) look as on the website.
+one-line summary of lint_text.py's text checks (ideas, open questions, register, bold, header,
+sentence length), which don't affect the exit code; a «Замечание редактора» does, since the book
+no longer uses that label. Callouts (Идея, Вопрос, side remarks) look as on the website.
 """
 
 import argparse
@@ -190,9 +191,14 @@ def main():
     for line in t.callout_math:
         print(f"MATH IN CALLOUT (line {line}): write it on one line, `> $$ … $$`; split over lines it shows a literal '>'")
         problems += 1
+    for line, _ in t.editor_label:
+        print(f"EDITOR LABEL (line {line}): «Замечание редактора» is not used in the book (author-rulings 29)")
+        problems += 1
     idea_part = f"{len(t.no_idea)} paragraph(s) without an Идея" if t.ideas else "no Идея callouts"
     print(f"Text checks: {idea_part}, {len(t.questions)} open question(s), {len(t.register)} register "
-          f"candidate(s), {len(t.before_def)} term(s) before definition, {len(t.short)} short sentence(s). "
+          f"candidate(s), {len(t.before_def)} term(s) before definition, {len(t.short)} short sentence(s), "
+          f"{len(t.bold)} bold outside a definition, {len(t.header) + len(t.intro)} header/intro, "
+          f"median sentence {t.median_words} words (his: 16). "
           f"Details: python3 {Path(__file__).with_name('lint_text.py')} {a.markdown}")
     print("OK: all math rendered, all images loaded." if not problems else f"{problems} problem(s).")
     sys.exit(1 if problems else 0)

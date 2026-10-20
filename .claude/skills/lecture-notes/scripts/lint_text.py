@@ -2,6 +2,7 @@
 """Check the text of a lecture draft for what the author's reviews keep catching.
 
     python3 lint_text.py docs/lecture-01/lecture-01.md
+    python3 lint_text.py --selftest     # his own lecture 1 must pass every check
 
 Reports, with line numbers:
   NO IDEA       a paragraph (or side remark) without an «Идея» callout right before it.
@@ -11,11 +12,18 @@ Reports, with line numbers:
   BEFORE DEF    a term used before the paragraph that defines it (bold term in a definition).
   SHORT         a sentence of three words or fewer — usually a spoken fragment.
   MATH IN CALLOUT  display math split over several "> " lines (renders with a literal ">").
+  EDITOR LABEL  «Замечание редактора»: the book has only «Замечание» (author-rulings 29). An error.
+  HEADER        «О чём лекция» with parentheses or longer than two short sentences (ruling 26).
+  INTRO         more than one paragraph between the header block and § 1 (ruling 27).
+  BOLD          bold outside a sentence that defines the term («… называется …») (ruling 28).
+  LONG          the median sentence is longer than his (16 words in his lecture 1; author-model §8).
 
-Everything except NO IDEA and OPEN QUESTION is a *candidate*: look at it, keep it if it's
-right in context. The idea check applies only to drafts that use Идея callouts at all (a
-finalized lecture has had them stripped). Exit code is always 0; hook_check.py and
-render_preview.py call lint() directly.
+Everything except NO IDEA, OPEN QUESTION and EDITOR LABEL is a *candidate*: look at it, keep it
+if it's right in context. The calibration is his own text: `--selftest` converts his lecture 1
+(raw/reviews/lecture-01/lecture1_indices.tex) and fails if any candidate fires on it. The idea check applies only to drafts that use Идея callouts at all (a
+finalized lecture has had them stripped), and not to a lecture built on the author's own text,
+marked by a `<!-- author-text -->` line. Exit code is 0, except for a failed --selftest;
+hook_check.py and render_preview.py call lint() directly.
 """
 
 import re
@@ -32,6 +40,10 @@ IDEA_RE = re.compile(r"^\*\*Идея\.?\*\*")
 QUESTION_RE = re.compile(r"^\*\*Вопрос(?:\s+(\d+))?[^*]*\*\*")
 ASIDE_RE = re.compile(r"^[*_]{1,2}(Замечание редактора|Замечание|Предупреждение|Забегая вперёд|Забегая вперед)\.[*_]{1,2}")
 ABOUT_RE = re.compile(r"Необходимые знания|О ч[её]м лекция")
+EDITOR_RE = re.compile(r"Замечание редактора")
+AUTHOR_TEXT_RE = re.compile(r"<!--\s*author-text\b")
+DEFINES = re.compile(r"называ|будем называть|назовём|назовем", re.I)
+HIS_MEDIAN_WORDS = 16          # median sentence length of his lecture 1 (author-model.md §3, §8)
 DRAFT_RE = re.compile(r"^\*\*Черновик")
 DISPLAY_MATH = re.compile(r"\$\$.*?\$\$", re.S)
 INLINE_MATH = re.compile(r"\$[^$\n]+\$")
@@ -62,6 +74,12 @@ class Report:
     short: list = field(default_factory=list)          # [(line, sentence)]
     old_markers: list = field(default_factory=list)    # [(line, excerpt)] leftover <!-- ПРОВЕРИТЬ … -->
     callout_math: list = field(default_factory=list)   # [line] multi-line $$ inside a blockquote
+    editor_label: list = field(default_factory=list)   # [(line, excerpt)] «Замечание редактора»
+    header: list = field(default_factory=list)         # [(line, why)]
+    intro: list = field(default_factory=list)          # [(line, number of intro paragraphs)]
+    bold: list = field(default_factory=list)           # [(line, term)] bold outside a defining sentence
+    median_words: float = 0
+    author_text: bool = False
 
 
 def blocks_of(md: str):
@@ -174,6 +192,26 @@ def lint(path: Path) -> Report:
     patterns = load_patterns()
 
     rep.ideas = sum(b.kind == "idea" for b in rep.blocks)
+    rep.author_text = bool(AUTHOR_TEXT_RE.search(md))
+
+    for b in rep.blocks:
+        if b.kind in ("aside", "quote", "para") and EDITOR_RE.search(b.text):
+            rep.editor_label.append((b.line, b.text.replace("\n", " ")[:90]))
+        if b.kind == "about":
+            m = re.search(r"О ч[её]м лекция:?\**:?\s*(.*)", b.text, re.S)
+            if m:
+                about = prose(m.group(1)).strip()
+                if "(" in about:
+                    rep.header.append((b.line, "parentheses in «О чём лекция»: list the topics, no glosses"))
+                if len(about) > 220:
+                    rep.header.append((b.line, f"«О чём лекция» is {len(about)} characters; his is two short sentences (~150)"))
+
+    first_sec = next((b.line for b in rep.blocks if b.kind == "heading" and b.text.startswith("## ")), None)
+    last_about = max((b.line for b in rep.blocks if b.kind == "about"), default=None)
+    if first_sec and last_about:
+        intro = [b for b in rep.blocks if last_about < b.line < first_sec and b.kind == "para" and not b.continues]
+        if len(intro) > 1:
+            rep.intro.append((intro[0].line, len(intro)))
     prev = None                                  # last block that isn't a comment or a question
     for b in rep.blocks:
         if b.kind == "question":
@@ -203,13 +241,39 @@ def lint(path: Path) -> Report:
                     lo = max(0, m.start() - 30)
                     rep.register.append((b.line + k, cat, plain[lo:m.end() + 30].strip(), hint))
         flat = ABBREV.sub(lambda m: m.group(0).replace(". ", ".\u00a0").replace(".", "\u2024"), prose(b.text).replace("\n", " "))
+        prev_s = ""
         for s in re.split(r"(?<=[.?!])\s+", flat):
             s = s.strip().replace("\u2024", ".")
             words = re.findall(r"[\wА-Яа-яЁё-]+", s)
-            # Short, math-free, starting a sentence of its own: «Вот и всё.», «Да.», «Обычно пишут самую короткую.»
-            if (s.endswith(".") and 0 < len(words) <= 3 and "X" not in words
+            after_question, prev_s = prev_s.endswith("?"), s
+            # Short, math-free, starting a sentence of its own: «Вот и всё.», «Обычно пишут самую короткую.»
+            # A short answer right after a question is his («Имеет ли смысл писать a = b? Да.»).
+            if (s.endswith(".") and 0 < len(words) <= 3 and "X" not in words and not after_question
                     and re.match(r"^[А-ЯЁA-Z«]", s) and not re.match(r"^(Рис|Замечание|Предупреждение|Доказательство|Забегая|Идея|Вопрос)", s)):
                 rep.short.append((b.line, s))
+
+    # Bold outside the sentence that defines the term, and the median sentence length. A paragraph
+    # that continues after a display formula is the same sentence, so it is joined to the one before.
+    texts = []
+    for b in rep.blocks:
+        if b.kind in ("para", "aside", "list"):
+            if b.kind == "para" and b.continues and texts:
+                texts[-1] = (texts[-1][0], texts[-1][1] + " X " + b.text.replace("\n", " "))
+            else:
+                texts.append((b.line, b.text.replace("\n", " ")))
+    lengths = []
+    for line, text in texts:
+        flat = ABBREV.sub(lambda m: m.group(0).replace(".", "\u2024"), text)
+        for s in re.split(r"(?<=[.?!])\s+", flat):
+            words = re.findall(r"[\wА-Яа-яЁё-]+", prose(s))
+            if len(words) > 1:
+                lengths.append(len(words))
+            for term in re.findall(r"\*\*([^*]+)\*\*", s):
+                if not NOT_TERMS.match(term) and not DEFINES.search(s):
+                    rep.bold.append((line, term))
+    if lengths:
+        lengths.sort()
+        rep.median_words = lengths[len(lengths) // 2]
 
     # Terms used before the paragraph that defines them.
     for b in rep.blocks:
@@ -230,15 +294,56 @@ def lint(path: Path) -> Report:
     return rep
 
 
+def candidates(rep):
+    """Every candidate line of a report, as printed (EDITOR LABEL included; ideas/questions not)."""
+    out = [f"{line}: EDITOR LABEL: «Замечание редактора» is not used in the book; write «Замечание», and record "
+           f"that it is ours in the draft's Идея callout and the report (ruling 29): {ex}" for line, ex in rep.editor_label]
+    out += [f"{line}: HEADER: {why}" for line, why in rep.header]
+    out += [f"{line}: INTRO: {n} paragraphs before § 1; his introduction is one paragraph (ruling 27)" for line, n in rep.intro]
+    out += [f"{line}: BEFORE DEF: «{term}» is defined at line {d}" for line, term, d in rep.before_def]
+    out += [f"{line}: REGISTER [{cat}]: …{ex}… → {hint}" for line, cat, ex, hint in rep.register]
+    out += [f"{line}: BOLD: «{term}» is bold outside a defining sentence; bold is only for the term being defined (ruling 28)"
+            for line, term in rep.bold]
+    out += [f"{line}: SHORT: {s}" for line, s in rep.short]
+    if rep.median_words > HIS_MEDIAN_WORDS + 2:
+        out.append(f"LONG: median sentence {rep.median_words} words; his lecture 1: {HIS_MEDIAN_WORDS}. "
+                   "Split long explanations; lead into formulas with short sentences («Тогда:», «Реализуем его:»).")
+    return out
+
+
+def selftest():
+    """His own lecture 1 is the standard: every candidate check must stay silent on it."""
+    from tex_to_md import convert
+    root = next((d for d in HERE.parents if (d / "raw").is_dir()), None)
+    tex = root / "raw/reviews/lecture-01/lecture1_indices.tex" if root else None
+    if not tex or not tex.exists():
+        sys.exit("selftest: raw/reviews/lecture-01/lecture1_indices.tex not found (raw/ is not in git)")
+    import tempfile
+    with tempfile.TemporaryDirectory() as d:
+        md = Path(d) / "lecture-01.md"
+        md.write_text(convert(tex.read_text(encoding="utf-8")), encoding="utf-8")
+        found = candidates(lint(md))
+    if found:
+        print(f"selftest FAILED: {len(found)} check(s) fire on his own text, so they ban what he writes. "
+              "Narrow them (register-patterns.tsv, lint_text.py):")
+        print("\n".join("  " + f for f in found))
+        sys.exit(1)
+    print(f"selftest OK: no check fires on his lecture 1 ({tex.name}).")
+
+
 def main():
     if len(sys.argv) < 2:
         sys.exit(__doc__)
+    if sys.argv[1] == "--selftest":
+        return selftest()
     for name in sys.argv[1:]:
         rep = lint(Path(name))
         print(f"== {name}")
         if rep.ideas:
             for line, ex in rep.no_idea:
                 print(f"{line}: NO IDEA: {ex}…")
+        elif rep.author_text:
+            print("(built on the author's own text: no Идея callouts needed)")
         else:
             print("(no Идея callouts: fine for a finalized lecture; a draft under review needs them)")
         for num, line, ex in rep.questions:
@@ -247,15 +352,13 @@ def main():
             print(f"{line}: MATH IN CALLOUT: write it on one line, `> $$ … $$` (split over lines it shows a literal '>' on the site)")
         for line, ex in rep.old_markers:
             print(f"{line}: OLD MARKER (turn into a Вопрос callout): {ex}")
-        for line, term, d in rep.before_def:
-            print(f"{line}: BEFORE DEF: «{term}» is defined at line {d}")
-        for line, cat, ex, hint in rep.register:
-            print(f"{line}: REGISTER [{cat}]: …{ex}… → {hint}")
-        for line, s in rep.short:
-            print(f"{line}: SHORT: {s}")
+        for c in candidates(rep):
+            print(c)
         print(f"Summary: {rep.ideas} ideas, {len(rep.no_idea) if rep.ideas else '-'} paragraphs without one, "
               f"{len(rep.questions)} open questions, {len(rep.register)} register candidates, "
-              f"{len(rep.before_def)} before-definition, {len(rep.short)} short sentences.")
+              f"{len(rep.before_def)} before-definition, {len(rep.short)} short sentences, "
+              f"{len(rep.bold)} bold, median sentence {rep.median_words} words (his: {HIS_MEDIAN_WORDS})"
+              + (f", {len(rep.editor_label)} EDITOR LABEL" if rep.editor_label else "") + ".")
 
 
 if __name__ == "__main__":

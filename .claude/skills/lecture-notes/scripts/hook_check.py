@@ -68,9 +68,17 @@ def post(inp):
         if rep.no_idea:
             out.append(f"- {len(rep.no_idea)} paragraph(s) without an «Идея» callout: " +
                        "; ".join(f"line {l} «{ex[:40]}…»" for l, ex in rep.no_idea[:6]))
-    else:
+    elif not rep.author_text:
         out.append("- No «Идея» callouts in this draft. A draft under review needs one before every paragraph "
                    "(`> **Идея.** …`); add them when you next revise it.")
+    if rep.editor_label:
+        out.append("- «Замечание редактора» at line(s) " + ", ".join(str(l) for l, _ in rep.editor_label) +
+                   ": the book has only «Замечание» (ruling 29). Note in the Идея callout and the report that it is ours.")
+    if rep.header or rep.intro:
+        out.append("- Header/intro: " + "; ".join([w for _, w in rep.header] +
+                   [f"{n} intro paragraphs, his is one" for _, n in rep.intro]) + ".")
+    if rep.bold:
+        out.append("- Bold outside a defining sentence: " + ", ".join(f"«{t}» (line {l})" for l, t in rep.bold[:5]) + ".")
     if rep.questions:
         out.append(f"- Open questions: " + ", ".join(f"Вопрос {n} (line {l})" for n, l, _ in rep.questions) +
                    ". Name each one in your final message.")
@@ -88,6 +96,10 @@ def post(inp):
                    f". Full list: python3 {Path(__file__).with_name('lint_text.py')} {fp}")
     if rep.short:
         out.append("- Short sentences: " + "; ".join(f"line {l} «{s}»" for l, s in rep.short[:5]))
+    if rep.median_words > 18:
+        out.append(f"- Median sentence {rep.median_words} words; his lecture 1: 16. Split long explanations.")
+    out.append("- Before you report: compare the changed passage with how his own text does it "
+               "(references/author-model.md): structure, what is kept, his connectives, questions answered at once.")
     out.append(REMINDER)
     print(json.dumps({"hookSpecificOutput": {"hookEventName": "PostToolUse",
                                              "additionalContext": "\n".join(out)[:3500]}}, ensure_ascii=False))
