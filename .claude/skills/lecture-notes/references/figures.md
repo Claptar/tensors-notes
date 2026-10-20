@@ -1,6 +1,6 @@
 # Figures
 
-Illustrations are the main way the book can improve on the spoken lectures, and the author's first review praised them most (figs. 4 and 5 of lecture 1). Philosophy 6 has two halves, and both matter: *a picture reveals what the formula hides* — and *it never adds what the text forbids*. This file covers when to draw, what to draw, how to frame it, how to draw it in house style, and how to check it.
+Illustrations are the main way the book can improve on the spoken lectures. Both of the author's reviews praised them («картинки… мне нравятся»): figs. 1, 3, 4 and 5 of lecture 1. The one thing he objected to was size: fig. 6 took half a page. Philosophy 6 has two halves, and both matter: *a picture reveals what the formula hides* — and *it never adds what the text forbids*. This file covers when to draw, what to draw, how to frame it, how to draw it in house style, and how to check it.
 
 ## When a figure earns its place
 
@@ -18,7 +18,14 @@ The course insists that a set carries no structure beyond what was defined: $I^2
 - **Introduce the picture in the text before it appears, as an option**: «Элементы $I^2$ удобно изобразить точками на сетке…», «Если расположить числа 1, 2, 3 на окружности, то…». Never «расположены», «лежат», «образуют сетку» about the object itself.
 - **Facts hold by definition; the picture only helps to see them.** «$(1,2)$ и $(2,1)$ — разные элементы $I^2$ по определению упорядоченной пары; на рисунке это видно как …», not the other way round.
 - **Statements that use the picture are conditional**: «если записать функцию двумерной таблицей, то она симметрична относительно главной диагонали».
-- **The caption carries the secondary details** (what the colours mean, which numbers were used); the text doesn't repeat them, and the caption doesn't restate the text.
+- **The caption carries the secondary details** (what the colours mean, which numbers were used); the text doesn't repeat them, and the caption doesn't restate the text. **Keep it to one or two lines.** Fig. 3's three-line caption was «слишком длинная», and MTW's long captions are the counterexample he named.
+
+## Size and layout
+
+- **At most a third of the page high.** `finalize.py` scales anything taller down to `0.33\textheight` and warns. Better: draw it lower in the first place (a wide, short viewBox; two panels side by side rather than stacked).
+- **Don't draw what the text already lists.** Under fig. 6 the six permutations repeated the formula above it («рисовать эти циклические перестановки нет смысла»).
+- **No gaps.** A figure that doesn't fit at the bottom of a page must not leave a third of the page empty. `finalize.py` places figures `[!htb]`, so such a figure goes to the top of the next page and the text fills the rest of this one (adopted 2026-10-20, after `[H]` left two gaps in lecture 1). A page that still ends early is reported as LAYOUT: then make the figure smaller or move it.
+- **Slobodyanyuk's layout** (one of his reference books): small figures with the text wrapped around them, and captions that are only «Рис. N». `finalize.py` doesn't wrap text yet. If a figure would clearly read better wrapped, say so to the user rather than making it large.
 
 ## What tends to work in this course
 
@@ -67,6 +74,6 @@ Surfaces are drawn as a few mesh lines or an outline, not shading. Hidden parts 
 
 1. Render it as the website shows it, in both themes: `python3 <skill-dir>/scripts/snap_svg.py figure.svg --out <scratch-dir>` writes `figure.light.png` and `figure.dark.png`, rendered by WebKit (Safari's engine, the strictest) with the site's figure styling. Look at both: nothing may vanish in dark mode.
 2. Ask: is it mathematically right (recompute one point)? Is every label legible, clear of lines and inside the frame? Is it obvious within two seconds what the figure is about? Would the caption alone explain it? Is it introduced in the text before it appears, and framed as a visualization rather than as the structure of the object?
-3. Look at it again in context in the PDF from `render_preview.py`: is it next to the paragraph that discusses it, and is the size right?
+3. Look at it again in context in the PDF from `render_preview.py`, and in the typeset preview. Is it next to the paragraph that discusses it? Is it at most a third of the page, with no gap before or after it?
 
 Fix and re-render until all of the above holds. A wrong or confusing figure is worse than none.

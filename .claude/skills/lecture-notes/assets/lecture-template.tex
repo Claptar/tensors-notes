@@ -1,15 +1,16 @@
 % Preamble for the final .tex of a ТЕНЗОРЫ lecture. scripts/finalize.py fills in the three
 % placeholders; the body is generated from docs/lecture-NN/lecture-NN.md.
 % Overleaf-compatible: compiles with Overleaf's default pdfLaTeX on TeX Live 2026, no project
-% settings to change. Fonts are Computer Modern + cm-super (T2A), the same as the
-% "Лекция 1. Индексы" example.
+% settings to change. Fonts, page geometry, running head and header block follow the author's own
+% lecture 1 (raw/reviews/lecture-01/lecture1_indices.tex): Computer Modern + cm-super (T2A), 1in
+% margins, a small running head, the header block as a small quote.
 \documentclass[11pt,a4paper]{article}
 \usepackage{cmap}                 % searchable/copyable Cyrillic in the PDF
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage[a4paper,left=2.2cm,right=2.2cm,top=2.6cm,bottom=2.4cm,headsep=0.8cm]{geometry}
+\usepackage[a4paper,margin=1in,headheight=14pt]{geometry}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{float}
@@ -22,12 +23,17 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{ТЕНЗОРЫ}
-\fancyhead[R]{%%RUNNING%%}
+\fancyhead[L]{\small ТЕНЗОРЫ}
+\fancyhead[R]{\small %%RUNNING%%}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
 \setlength{\parindent}{1.5em}
+\setlength{\emergencystretch}{1.5em}  % a little extra stretch instead of a line sticking into the margin
+% No preferred page break before a section heading. With \raggedbottom, LaTeX's default
+% \@secpenalty = -300 made every section that didn't fit whole start a new page, leaving the
+% previous page a quarter empty (lecture 2, 2026-10-20).
+\makeatletter\@secpenalty=0\makeatother
 \setlist{nosep, leftmargin=2em}
 \renewcommand{\arraystretch}{1.15}
 
@@ -38,12 +44,12 @@
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\Q}{\mathbb{Q}}
 
-% Header block: "Необходимые знания" / "О чем лекция".
-\newenvironment{lectureabout}{\begin{list}{}{\leftmargin=2.2em\rightmargin=2.2em}\small\item[]}{\end{list}\medskip}
+% Header block: "Необходимые знания" / "О чем лекция", set as in his lecture 1 (a small quote).
+\newenvironment{lectureabout}{\begin{quote}\small}{\end{quote}\medskip}
 % Side remarks («Замечание.», «Предупреждение.», «Забегая вперёд.»): material that belongs
 % here but doesn't carry the main line. Set like a figure caption — smaller, lighter, slightly
 % indented — never boxed (boxes are kept for the rare thing the author marks as essential).
-% (Style A of the options shown to the author with lecture 1; replace if another is chosen.)
+% (Style A of the options shown to the author with lecture 1; approved in his review of 2026-10-19.)
 \definecolor{asideink}{gray}{0.33}
 \newenvironment{aside}%
   {\begin{list}{}{\leftmargin=1.5em\rightmargin=1.5em\topsep=0.6ex\parsep=0.4ex}\small\color{asideink}\item[]}%

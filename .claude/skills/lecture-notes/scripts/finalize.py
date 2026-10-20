@@ -19,14 +19,20 @@ What it does:
      sections, paragraphs with $math$, $$display$$, tables, figures with a "*Рис. N. …*"
      caption line, lists, HTML comments (kept as % comments), and the end mark. Callouts
      (blockquotes opening with a label, see SKILL.md): side remarks («Замечание.»,
-     «Предупреждение.», «Забегая вперёд.», «Замечание редактора.») become the `aside`
+     «Предупреждение.», «Забегая вперёд.») become the `aside`
      environment; «Идея.» callouts are draft-only and are left out;
   3. compiles exactly as Overleaf does by default: pdfLaTeX via latexmk on TeX Live 2026
      (full scheme), in the official texlive/texlive Docker image pinned by digest.
 
-It refuses to run while the draft has open «Вопрос N» callouts or old <!-- ПРОВЕРИТЬ -->
-markers: those are questions for the user or the lecturer, and the final version must not
-carry a guess. With --strip-ideas it also removes the Идея callouts from the .md itself, for
+It refuses to run while the draft has open «Вопрос N» callouts, old <!-- ПРОВЕРИТЬ -->
+markers or a «Замечание редактора» (the book has only «Замечание», author-rulings 29): those
+are questions for the user or the lecturer, and the final version must not carry a guess.
+
+Layout, after the author's review of lecture 1 (author-rulings 31–32): tables are set without
+inner vertical rules; a table of more than 12 rows is split into blocks side by side; a figure
+is at most a third of the page high and floats [!htb] (one that doesn't fit goes to the top of
+the next page instead of leaving a gap); «Конец лекции» stays with the last paragraph; and after compiling, every page except the last that ends
+early (a table or figure pushed to the next page) is reported as LAYOUT. With --strip-ideas it also removes the Идея callouts from the .md itself, for
 when the user has approved the lecture (git keeps them in the history).
 
 The .md stays the source of truth. The generated .tex ends with a checksum line; if the .tex
@@ -152,6 +158,9 @@ def inline(s):
         warn(f"HTML tag dropped: {s.strip()[:80]}")
         s = re.sub(r"<(?!!--)[a-zA-Z/][^>]*>", "", s)
     s = escape_text(s)
+    # «рис. 5», «т. п.»: no line break inside (it split «(рис.» / «5)» in lecture 1)
+    s = re.sub(r"(?<![А-Яа-яЁё])([Рр]ис\.) (?=\d)", r"\1~", s)
+    s = re.sub(r"(?<![А-Яа-яЁё])т\. ([епдк])\.", r"т.~\1.", s)
     s = re.sub(r"\*\*\*(.+?)\*\*\*", r"\\textbf{\\emph{\1}}", s, flags=re.S)
     s = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", s, flags=re.S)
     s = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"\\emph{\1}", s, flags=re.S)
@@ -277,6 +286,11 @@ def convert(md, md_path, fig_pdf):
                 buf = [st[2:-2]]
             content = "\n".join(buf).strip()
             check_math(content)
+            for arr in re.findall(r"\\begin\{array\}.*?\\end\{array\}", content, re.S):
+                rows = arr.count("\\\\")
+                if rows > MAX_TABLE_ROWS + 1:
+                    warn(f"LAYOUT: a table of {rows} rows in display math; set it as blocks side by side "
+                         f"(author-rulings 31): {content[:60]}")
             out.append(("math", "\\[\n" + content + "\n\\]"))
             i += 1
             continue
@@ -288,17 +302,17 @@ def convert(md, md_path, fig_pdf):
                 rows.append(lines[i].strip())
                 i += 1
             cells = [split_row(r) for r in rows if not re.match(r"^\|[\s:|-]+\|?$", r)]
-            ncol = max(len(c) for c in cells)
-            spec = "|" + "|".join("c" * 1 for _ in range(ncol)) + "|"
-            body = " \\\\ \\hline\n".join(" & ".join(inline(c) for c in row + [""] * (ncol - len(row))) for row in cells)
-            out.append("\\begin{center}\n\\begin{tabular}{" + spec + "}\n\\hline\n" + body + " \\\\ \\hline\n\\end{tabular}\n\\end{center}")
+            out.append(table_tex(cells))
             continue
 
         # figure (+ optional caption paragraph)
         m = re.match(r"^!\[([^\]]*)\]\(([^)\s]+)\)\s*$", st)
         if m:
             src = m.group(2)
-            pdf_rel, width = fig_pdf(src)
+            pdf_rel, width, aspect = fig_pdf(src)
+            if width * aspect > FIG_MAX_HEIGHT * TEXT_H_OVER_W:
+                warn(f"LAYOUT: {src} would take {width * aspect / TEXT_H_OVER_W:.0%} of the page height; it is "
+                     f"scaled down to {FIG_MAX_HEIGHT:.0%} (author-rulings 31). Consider redrawing it lower.")
             i += 1
             while i < n and not lines[i].strip():
                 i += 1
@@ -306,8 +320,11 @@ def convert(md, md_path, fig_pdf):
             if i < n and re.match(r"^\*Рис\.", lines[i].strip()):
                 cap, i = para_until(i)
                 caption = inline(cap.strip().strip("*"))
-            fig = ["\\begin{figure}[H]", "\\centering",
-                   f"\\includegraphics[width={width:.2f}\\textwidth]{{{pdf_rel}}}"]
+            # [!htb], not [H]: a figure that doesn't fit goes to the top of the next page and the text
+            # fills the rest of this one, so no page is left with a gap (author-rulings 31).
+            fig = ["\\begin{figure}[!htb]", "\\centering",
+                   f"\\includegraphics[width={width:.2f}\\textwidth,height={FIG_MAX_HEIGHT}\\textheight,"
+                   f"keepaspectratio]{{{pdf_rel}}}"]
             if caption:
                 fig.append("\\caption*{" + caption + "}")
             fig.append("\\end{figure}")
@@ -321,7 +338,9 @@ def convert(md, md_path, fig_pdf):
                 i += 1
             if i < n and re.match(r"^\*Конец лекции", lines[i].strip()):
                 end, i = para_until(i)
-                out.append("\\par\\bigskip\\noindent\\rule{\\textwidth}{0.4pt}\\par\\noindent " + inline(end))
+                # kept on the page of the last paragraph: never a page with only «Конец лекции»
+                out.append("\\par\\nopagebreak\\bigskip\\noindent\\rule{\\textwidth}{0.4pt}\\par\\nopagebreak"
+                           "\\noindent " + inline(end))
             else:
                 out.append("\\par\\medskip\\noindent\\rule{\\textwidth}{0.4pt}\\par\\medskip")
             continue
@@ -339,7 +358,10 @@ def convert(md, md_path, fig_pdf):
                     items[-1] += " " + lines[i].strip()
                 i += 1
             env = "enumerate" if ordered else "itemize"
-            out.append(f"\\begin{{{env}}}\n" + "\n".join("\\item " + inline(it) for it in items) + f"\n\\end{{{env}}}")
+            # a numbered list that continues an earlier one («5.» after a break) keeps its numbers
+            start = int(re.match(r"\d+", m.group(1)).group(0)) if ordered else 1
+            opt = f"[start={start}]" if start != 1 else ""
+            out.append(f"\\begin{{{env}}}{opt}\n" + "\n".join("\\item " + inline(it) for it in items) + f"\n\\end{{{env}}}")
             continue
 
         # paragraph
@@ -385,6 +407,34 @@ def split_row(row):
             cur += ch
     cells.append(cur.strip())
     return cells
+
+
+MAX_TABLE_ROWS = 12      # more body rows than this: blocks side by side (author-rulings 31)
+FIG_MAX_HEIGHT = 0.33    # of \textheight: no figure takes half a page (author-rulings 31)
+TEXT_H_OVER_W = 1.55     # text block of the template (A4, 1in margins): 24.6 cm / 15.9 cm
+
+
+def table_tex(cells):
+    """A Markdown table as the author likes it (rulings 31–32): a rule under the header and one before
+    the last column (arguments | value), no other vertical rules. Two-dimensional tables of values are
+    written as display `array`s instead (style.md §3). More than MAX_TABLE_ROWS body rows are split
+    into blocks side by side, each with the header, as in his ε table."""
+    ncol = max(len(c) for c in cells)
+    cells = [row + [""] * (ncol - len(row)) for row in cells]
+    head, rows = cells[0], cells[1:]
+    spec = "c" * (ncol - 1) + "|c" if ncol > 1 else "c"
+
+    def one(rows_):
+        lines = [" & ".join(inline(c) for c in head) + r" \\ \hline"]
+        lines += [" & ".join(inline(c) for c in row) + r" \\" for row in rows_]
+        return "\\begin{tabular}{" + spec + "}\n" + "\n".join(lines) + "\n\\end{tabular}"
+
+    if len(rows) <= MAX_TABLE_ROWS:
+        return "\\begin{center}\n" + one(rows) + "\n\\end{center}"
+    k = -(-len(rows) // MAX_TABLE_ROWS)                 # number of blocks
+    per = -(-len(rows) // k)
+    blocks = [one(rows[j:j + per]) for j in range(0, len(rows), per)]
+    return "\\begin{center}\n" + "\n\\qquad\n".join(blocks) + "\n\\end{center}"
 
 
 # ---------------------------------------------------------------- figures
@@ -468,6 +518,39 @@ def compile_pdf(tex_path: Path, pdf_dir: Path):
     return out
 
 
+def page_fill(pdf: Path, gap=0.15):
+    """Pages, except the last, whose text ends more than `gap` of the text height above the bottom
+    margin: what a table or figure pushed to the next page leaves behind (author-rulings 31). Needs
+    pdftotext (poppler); skipped quietly without it."""
+    if not shutil.which("pdftotext"):
+        print("LAYOUT: page-fill check skipped (pdftotext not found); look at every page by eye.")
+        return []
+    res = subprocess.run(["pdftotext", "-bbox", str(pdf), "-"], capture_output=True, text=True,
+                         encoding="utf-8", errors="replace", check=False)
+    pages = res.stdout.split("<page ")[1:]
+    found = []
+    for k, page in enumerate(pages[:-1], 1):
+        hm = re.match(r'width="([\d.]+)" height="([\d.]+)"', page)
+        if not hm:
+            continue
+        H = float(hm.group(2))
+        margin = 72.27                      # 1in, as in the template's geometry
+        top, bottom = margin, H - margin
+        ys = []
+        for m in re.finditer(r'yMin="([\d.]+)" xMax="[\d.]+" yMax="([\d.]+)">([^<]*)<', page):
+            y0, y1, w = float(m.group(1)), float(m.group(2)), m.group(3)
+            if y0 > bottom - 2 or y1 < top + 2:   # running head and page number
+                continue
+            ys.append(y1)
+        if ys and (bottom - max(ys)) / (bottom - top) > gap:
+            found.append((k, (bottom - max(ys)) / (bottom - top)))
+    for k, g in found:
+        print(f"LAYOUT: page {k} ends early ({g:.0%} of the text height left empty). A table or figure that "
+              "didn't fit moved to the next page: make it smaller, split a long table into blocks side by side, "
+              "or move it.")
+    return found
+
+
 def overleaf_zip(tex_path: Path, figures: list, zip_path: Path):
     """The .tex plus its figure PDFs, ready for Overleaf's New Project → Upload Project."""
     zip_path.parent.mkdir(parents=True, exist_ok=True)
@@ -499,6 +582,13 @@ def main():
     blocks = blocks_of(source)
     open_q = [b for b in blocks if b.kind == "question"]
     old_q = [b for b in blocks if b.kind == "comment" and "ПРОВЕРИТЬ" in b.text]
+    editor = [b for b in blocks if b.kind in ("aside", "quote", "para") and "Замечание редактора" in b.text]
+    if editor:
+        print("ERROR: «Замечание редактора» is not used in the book (author-rulings 29). Relabel it «Замечание»")
+        print("(the author accepted it), or move it into a «Вопрос» for him; then run again:")
+        for b in editor:
+            print(f"  line {b.line}: {b.text.replace(chr(10), ' ')[:110]}")
+        sys.exit(1)
     if open_q or old_q:
         print("ERROR: the draft still has open questions. Ask the user (or have the lecturer answer them),")
         print("apply the answers in the .md, delete the callouts, and run again:")
@@ -542,12 +632,12 @@ def main():
             if (tex_dir / rel).resolve() != svg:
                 shutil.copy(svg, tex_dir / rel)
             used_figures.append(rel.as_posix())
-            return rel.as_posix(), 0.8
+            return rel.as_posix(), 0.8, 0.6
         if not dest.exists() or dest.stat().st_mtime < svg.stat().st_mtime:
             svg_to_pdf(svg, dest)
         used_figures.append(rel.as_posix())
-        w, _ = svg_size(svg.read_text(encoding="utf-8"))
-        return rel.as_posix(), min(1.0, w / 760.0)
+        w, h = svg_size(svg.read_text(encoding="utf-8"))
+        return rel.as_posix(), min(1.0, w / 760.0), h / w
 
     title, body = convert(source, md_path, fig_pdf)
     running = re.sub(r"\s+", " ", title)
@@ -576,7 +666,9 @@ def main():
         print(f"Overleaf zip: {z}")
     if a.tex_only:
         return
-    print(f"PDF: {compile_pdf(tex_path, pdf_dir)}")
+    pdf = compile_pdf(tex_path, pdf_dir)
+    print(f"PDF: {pdf}")
+    page_fill(pdf)
 
 
 if __name__ == "__main__":
