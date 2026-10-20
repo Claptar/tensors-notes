@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 290" width="640" height="290">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#2563a8"/>
+    </marker>
+  </defs>
+  <style>
+    .ink  { stroke: #1a1a1a; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { stroke: #1a1a1a; stroke-width: 1; fill: none; }
+    .grid { stroke: #1a1a1a; stroke-width: 0.6; stroke-opacity: 0.25; fill: none; }
+    .red  { stroke: #c0392b; }
+    .blue { stroke: #2563a8; }
+    .dash { stroke-dasharray: 5 4; }
+    .tint-red  { fill: #c0392b; fill-opacity: 0.10; }
+    .tint-blue { fill: #2563a8; fill-opacity: 0.10; }
+    .tint-grey { fill: #1a1a1a; fill-opacity: 0.05; }
+    .dot  { fill: #1a1a1a; stroke: none; }
+    .dot-red { fill: #c0392b; stroke: none; }
+    .dot-blue { fill: #2563a8; stroke: none; }
+    .deco { stroke: #1a1a1a; stroke-width: 1.1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    text { fill: #1a1a1a; font-family: 'Times New Roman', Times, serif; font-size: 19px; }
+    .m { font-style: italic; }
+    .t { font-style: normal; }
+    .small { font-size: 15px; }
+    .sub { font-size: 13px; }
+    .lbl-red { fill: #c0392b; }
+    .lbl-blue { fill: #2563a8; }
+    .mid { text-anchor: middle; }
+    .end { text-anchor: end; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <path class="ink tint-grey" d="M429.8,70 C429.8,79.6 422.7,90.5 413.3,98.7 C403.9,107 389.1,115 373.5,119.4 C358,123.8 337,125.9 320,125.1 C303,124.4 285.8,119.6 271.4,114.9 C257,110.2 244.1,104.1 233.5,96.6 C223,89.1 210.6,79.6 208.3,70 C206,60.4 209.7,47.2 219.6,39.1 C229.5,31 250.7,24.8 267.4,21.4 C284.2,18.1 303,18.8 320,19.3 C337,19.7 354,20.6 369.6,24.2 C385.1,27.9 403.5,33.6 413.5,41.2 C423.6,48.8 429.8,60.4 429.8,70 Z"/>
+  <path class="ink tint-grey" d="M233.4,196 C234.4,205.8 227.7,217.8 218.6,226.3 C209.5,234.8 193.8,242.3 178.7,247 C163.6,251.6 144.5,254.5 128,254.1 C111.5,253.7 93.2,249.6 79.8,244.5 C66.3,239.3 55.9,231 47.5,223 C39.1,214.9 31.6,205.8 29.2,196 C26.9,186.2 26.1,173.4 33.5,164.4 C41,155.3 58.2,145.7 74,141.7 C89.7,137.7 111.5,139 128,140.5 C144.5,142 158.9,146.3 172.9,150.9 C187,155.4 202.4,160.2 212.4,167.7 C222.5,175.2 232.4,186.2 233.4,196 Z"/>
+  <path class="ink tint-grey" d="M616.4,196 C616.5,205.9 610.8,218 601.3,225.9 C591.8,233.8 574.3,239.9 559.4,243.6 C544.5,247.4 528.2,248.1 512,248.5 C495.8,248.9 478.2,249.4 462.2,246 C446.3,242.6 426.1,236.3 416.6,228 C407,219.6 403,205.9 405.1,196 C407.2,186.1 419.2,176.1 429.3,168.3 C439.4,160.6 452,154.5 465.8,149.6 C479.6,144.7 495.8,139.9 512,139.1 C528.2,138.3 548.2,140.3 563,144.8 C577.8,149.3 591.9,157.7 600.8,166.2 C609.8,174.8 616.4,186.1 616.4,196 Z"/>
+  <path class="deco" d="M312,41 Q305,74 312,107"/>
+  <path class="deco" d="M348,41 Q355,74 348,107"/>
+  <text class="t" x="330" y="58" text-anchor="middle"><tspan class="m">α</tspan><tspan class="sub t" dy="5">1</tspan></text>
+  <text class="t" x="330" y="80" text-anchor="middle">⋮</text>
+  <text class="t" x="330" y="102" text-anchor="middle"><tspan class="m">α</tspan><tspan class="sub m" dy="5">n</tspan></text>
+  <circle class="dot-red" cx="146" cy="182" r="4"/>
+  <circle class="dot-red" cx="494" cy="182" r="4"/>
+  <text class="m lbl-red" x="138" y="208">v</text><path class="deco red" d="M139,193 h10 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="m lbl-red" x="490" y="208">w</text><path class="deco red" d="M491,193 h10 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <path class="ink" d="M152,176 L300,88" marker-end="url(#arrow)"/>
+  <path class="ink" d="M488,176 L360,88" marker-end="url(#arrow)"/>
+  <text class="m" x="195" y="132">φ<tspan class="sub t" dy="5">1</tspan></text>
+  <text class="m" x="428" y="132">φ<tspan class="sub t" dy="5">2</tspan></text>
+  <path class="ink red dash" d="M156,186 L484,186" marker-start="url(#arrow-red)" marker-end="url(#arrow-red)"/>
+  <text class="m" x="242" y="62">S<tspan class="sub m" dy="5">n</tspan></text>
+  <text class="m" x="66" y="226">V<tspan class="sub t" dy="5">1</tspan></text>
+  <text class="m" x="554" y="226">V<tspan class="sub t" dy="5">2</tspan></text>
+  <text class="t small" x="128" y="282" text-anchor="middle">dim <tspan class="m">V</tspan><tspan class="sub t" dy="5">1</tspan><tspan dy="-5"> = </tspan><tspan class="m">n</tspan></text>
+  <text class="t small" x="512" y="282" text-anchor="middle">dim <tspan class="m">V</tspan><tspan class="sub t" dy="5">2</tspan><tspan dy="-5"> = </tspan><tspan class="m">n</tspan></text>
+</svg>

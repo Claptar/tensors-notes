@@ -207,3 +207,20 @@ def blob(cx, cy, rx, ry, phase=0.0, k=12):
         r = 1 + 0.07 * math.sin(2 * t + phase) + 0.04 * math.cos(3 * t + 2 * phase)
         pts_.append((cx + rx * r * math.cos(t), cy + ry * r * math.sin(t)))
     return smooth_closed(pts_)
+
+def column(x, y, entries, cls="t", color="", h_line=22, w=34):
+    """A column of numbers in parentheses, centred at x; y is the vertical centre (a column of
+    components, an element of S_n). Returns a list of SVG lines."""
+    n = len(entries)
+    top, bot = y - n * h_line / 2, y + n * h_line / 2
+    stroke = {"": "", "red": " red", "blue": " blue"}[color]
+    lbl = {"": "", "red": " lbl-red", "blue": " lbl-blue"}[color]
+    out = []
+    for side in (-1, 1):
+        xe = x + side * w / 2
+        xc = xe + side * 7
+        out.append(f'<path class="deco{stroke}" d="M{fmt(xe)},{fmt(top)} Q{fmt(xc)},{fmt(y)} {fmt(xe)},{fmt(bot)}"/>')
+    for i, e in enumerate(entries):
+        yy = top + (i + 0.5) * h_line + 6
+        out.append(f'<text class="{cls}{lbl}" x="{fmt(x)}" y="{fmt(yy)}" text-anchor="middle">{e}</text>')
+    return out

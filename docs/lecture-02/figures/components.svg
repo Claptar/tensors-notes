@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 250" width="350" height="250">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 z" fill="#2563a8"/>
+    </marker>
+  </defs>
+  <style>
+    .ink  { stroke: #1a1a1a; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { stroke: #1a1a1a; stroke-width: 1; fill: none; }
+    .grid { stroke: #1a1a1a; stroke-width: 0.6; stroke-opacity: 0.25; fill: none; }
+    .red  { stroke: #c0392b; }
+    .blue { stroke: #2563a8; }
+    .dash { stroke-dasharray: 5 4; }
+    .tint-red  { fill: #c0392b; fill-opacity: 0.10; }
+    .tint-blue { fill: #2563a8; fill-opacity: 0.10; }
+    .tint-grey { fill: #1a1a1a; fill-opacity: 0.05; }
+    .dot  { fill: #1a1a1a; stroke: none; }
+    .dot-red { fill: #c0392b; stroke: none; }
+    .dot-blue { fill: #2563a8; stroke: none; }
+    .deco { stroke: #1a1a1a; stroke-width: 1.1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    text { fill: #1a1a1a; font-family: 'Times New Roman', Times, serif; font-size: 19px; }
+    .m { font-style: italic; }
+    .t { font-style: normal; }
+    .small { font-size: 15px; }
+    .sub { font-size: 13px; }
+    .lbl-red { fill: #c0392b; }
+    .lbl-blue { fill: #2563a8; }
+    .mid { text-anchor: middle; }
+    .end { text-anchor: end; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <line class="grid" x1="48" y1="222" x2="48" y2="37.2"/>
+  <line class="grid" x1="90" y1="222" x2="90" y2="37.2"/>
+  <line class="grid" x1="132" y1="222" x2="132" y2="37.2"/>
+  <line class="grid" x1="174" y1="222" x2="174" y2="37.2"/>
+  <line class="grid" x1="216" y1="222" x2="216" y2="37.2"/>
+  <line class="grid" x1="258" y1="222" x2="258" y2="37.2"/>
+  <line class="grid" x1="300" y1="222" x2="300" y2="37.2"/>
+  <line class="grid" x1="48" y1="222" x2="316.8" y2="222"/>
+  <line class="grid" x1="48" y1="180" x2="316.8" y2="180"/>
+  <line class="grid" x1="48" y1="138" x2="316.8" y2="138"/>
+  <line class="grid" x1="48" y1="96" x2="316.8" y2="96"/>
+  <line class="grid" x1="48" y1="54" x2="316.8" y2="54"/>
+  <line class="thin dash" x1="132" y1="180" x2="174" y2="54"/>
+  <line class="thin dash" x1="90" y1="96" x2="174" y2="54"/>
+  <path class="ink red dash" d="M48,222 L300,96" marker-end="url(#arrow-red)"/>
+  <path class="ink" d="M48,222 L174,54" marker-end="url(#arrow)"/>
+  <path class="ink blue" d="M48,222 L90,96" marker-end="url(#arrow-blue)"/>
+  <path class="ink red" d="M48,222 L132,180" marker-end="url(#arrow-red)"/>
+  <path class="ink" style="stroke-width:2.2" d="M48,222 L90,222" marker-end="url(#arrow)"/>
+  <path class="ink" style="stroke-width:2.2" d="M48,222 L48,180" marker-end="url(#arrow)"/>
+  <circle class="dot" cx="48" cy="222" r="3.5"/>
+  <text class="m" x="72" y="244">e<tspan class="sub t" dy="5">1</tspan><tspan dy="-5"> </tspan></text><path class="deco" d="M73,229 h10 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="m" x="18" y="186">e<tspan class="sub t" dy="5">2</tspan><tspan dy="-5"> </tspan></text><path class="deco" d="M19,171 h10 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="m lbl-red" x="134" y="202">a</text><path class="deco red" d="M135,187 h10 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="m lbl-blue" x="68" y="92">b</text><path class="deco blue" d="M69,77 h10 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="m" x="180" y="50">c</text><path class="deco" d="M181,35 h10 m-3,-2.5 l3,2.5 l-3,2.5"/>
+  <text class="t lbl-red" x="286" y="84">3</text>
+  <text class="m lbl-red" x="296" y="84">a</text><path class="deco red" d="M297,69 h10 m-3,-2.5 l3,2.5 l-3,2.5"/>
+</svg>
