@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "write up lecture 1 (индексы) from my handnotes and the recording",
-      "expected_output": "docs/lecture-01/lecture-01.md built on the author's own text (raw/reviews/lecture-01/lecture1_indices.tex, converted with scripts/tex_to_md.py), word for word except listed cosmetic fixes, with our praised figures added at most a third of a page each; marked <!-- author-text -->; preview renders clean; the open conflicts of author-model.md §7 are asked, not decided.",
+      "expected_output": "docs/lecture-01/lecture-01.md built on the author's own text (raw/reviews/lecture-01/lecture1_indices.tex, converted with scripts/tex_to_md.py), word for word except listed cosmetic fixes, with our praised figures added at most a third of a page each; marked <!-- author-text -->; preview renders clean; his answers in author-model.md §7 are applied (ℝ² and dt′/t′ as small remarks, the rest absent), and anything still open is asked, not decided.",
       "files": [],
       "assertions": [
         "Lecture file exists at docs/lecture-NN.md",
@@ -25,7 +25,7 @@
         "Median sentence length within 2 words of his 16 (lint: no LONG)",
         "No summary paragraph before «Конец лекции N.»",
         "Report lists what was dropped by the 'used later?' test, with recording times, and every addition of ours",
-        "Text equals his lecture 1 section by section (difflib ratio ≥ 0.95 on prose without figures and captions), except listed typo fixes"
+        "Text equals his lecture 1 section by section (difflib ratio ≥ 0.95 on prose without figures, captions and side remarks), except listed typo fixes"
       ]
     },
     {

@@ -251,21 +251,23 @@ Measured over the four volumes and read in samples (vol. 1 §§1, 10, 28; vol. 3
   - problems at the end of chapters;
   - Zorich also uses small print for supplementary material.
 
-## 7. Open conflicts
+## 7. Conflicts between review 1 and his text, and his answers
 
-In these places review 1 and his text disagree. Each was put to him through the user on 2026-10-19 as «оставить мелким замечанием или убрать». Until he answers, lecture 1 does not settle them. Record each answer here and in `author-rulings.md`.
+In these places review 1 and his text disagreed. Each was put to him through the user on 2026-10-19 as «оставить мелким замечанием или убрать». He answered on 2026-10-20 (`raw/reviews/lecture-01/reply.txt`, times below). The answers are rulings 10 and 34–40 in `author-rulings.md`.
 
-| Item | Review 1 | His text / review 2 |
-|---|---|---|
-| ℝ² is only a set of ordered pairs, without distances or angles | «ни в коем случае нельзя выкидывать» (09:42) | absent |
-| 2−x=3 as a map ℝ→{да, нет} | «супер классно» (06:18) | absent; review 2 likes the remark, maybe its look (04:42) |
-| dt′/t′ | «как замечание и выделить, супер» (25:10) | absent |
-| composition | «гениально» (08:19) | absent |
-| «пятнашки» | «сомнительно… ладно, оставляем» (45:33–45:56) | absent |
-| T(x,y) / T(r⃗) | «либо я его просто уберу» (17:22) | absent |
-| fig. 6 | — | «рисовать эти циклические перестановки нет смысла» (09:23): drop the permutation rows and shrink, or drop the figure? |
+| Item | Review 1 | His text / review 2 | Answer (2026-10-20) |
+|---|---|---|---|
+| ℝ² is only a set of ordered pairs, without distances or angles | «ни в коем случае нельзя выкидывать» (09:42) | absent | **small remark** («сохраняем, выносим замечанием», 00:01) |
+| 2−x=3 as a map ℝ→{да, нет} | «супер классно» (06:18) | absent; review 2 likes the remark, maybe its look (04:42) | removed («супер классно. Но убираем», 00:01–00:32) |
+| dt′/t′ | «как замечание и выделить, супер» (25:10) | absent | **small remark, our wording** («в таком виде в качестве замечания оставляем», 00:32; 01:24) |
+| composition | «гениально» (08:19) | absent | removed (00:32–01:03) |
+| «пятнашки» | «сомнительно… ладно, оставляем» (45:33–45:56) | absent | removed; he may edit the permutations himself (01:03) |
+| T(x,y) / T(r⃗) | «либо я его просто уберу» (17:22) | absent | removed (01:03–01:24) |
+| fig. 6 | — | «рисовать эти циклические перестановки нет смысла» (09:23): drop the permutation rows and shrink, or drop the figure? | kept, compact, «не… полстраницы» (01:24–01:57) |
 
-**Not asked; decided by his text and review 2:**
+What the answers show: praise in a review is not a decision to keep. Two of the seven survive, both as small grey remarks, and both are remarks that prevent a misreading (ℝ² has no hidden structure; a dummy variable can't share a name with a limit). The rest he enjoyed and still cut («всё, что лишнее, убираем»).
+
+**Not asked; decided by his text and review 2, and confirmed in his answer (01:57):**
 - operators/functionals: drop (03:03);
 - the closing summary: drop (cut in his .tex);
 - Taylor's lower limit: drop (not praised, not used later).

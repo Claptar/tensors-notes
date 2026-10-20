@@ -15,6 +15,7 @@ Statuses were checked against his text on 2026-10-19.
 Reviews:
 - review 1, 2026-10-12: `raw/reviews/lecture-01/review.utf8.txt`;
 - review 2, 2026-10-19: `raw/reviews/lecture-01/monday19.10.26.txt`, UTF-16;
+- his answers on the open items, 2026-10-20: `raw/reviews/lecture-01/reply.txt`, UTF-16 (copy: `reply.utf8.txt`);
 - his notes on reference books: `raw/reviews/lecture-01/style.txt`.
 
 Add new rulings at the end of their section, with the date. When the lecturer answers a question with something general, it belongs here too.
@@ -42,7 +43,7 @@ Add new rulings at the end of their section, with the date. When the lecturer an
 ## Content and claims
 
 9. ~~Keep every detail; the author does the cutting.~~ *(05:14, 03:07.)* **Retired** by review 2 and his text. See ruling 25.
-10. **Remarks that no additional structure is assumed must never be dropped** (e.g. ℝ² is just a set of ordered pairs, not a plane with distances and angles). *(09:42–10:12.)* **In question.** His text has no such remark about ℝ². It was put to him on 2026-10-19 (`author-model.md` §7). Until he answers, don't drop it in a new lecture without asking.
+10. **Remarks that no additional structure is assumed must never be dropped** (e.g. ℝ² is just a set of ordered pairs, not a plane with distances and angles). *(09:42–10:12.)* **Closed on 2026-10-20: keep, as a small «Замечание».** «Замечание сохраняем, выносим замечанием» (reply, 00:01–00:32). His text had no such remark; lecture 1 now has one after fig. 3. A remark of this kind in any lecture (lecture 2: geometric vectors have length and angle, a linear space doesn't) is set as a small «Замечание», not dropped and not in the main text.
 11. **Visualizations are optional:** «могут быть изображены / если расположить …, то …», never «расположены». *(11:55–13:31, 18:27, 46:42.)* **Keep.** His text: «визуализация также возможна с помощью таблиц двумя способами».
 12. **Sum and integral are analogous, not the same.** *(20:12–21:53.)* **Narrowed.**
     - «аналог», «полная аналогия», «полный аналог» are his words («Для индексной функции аналогом служит сумма», «Вновь прослеживается полная аналогия с интегралами»).
@@ -109,11 +110,26 @@ Add new rulings at the end of their section, with the date. When the lecturer an
   - the «Неформально:» paragraph on δ;
   - the editor's remark on antisymmetry («это вообще чётко»).
 
-  *(08:19, 26:31–29:01, 31:35, 43:48, 47:14.)* Antisymmetry is defined in the main text of his §4. The composition paragraph and the second half of the warning are not in his text; see `author-model.md` §7.
+  *(08:19, 26:31–29:01, 31:35, 43:48, 47:14.)* Antisymmetry is defined in the main text of his §4. Praise in review 1 did not mean keep: the composition paragraph was removed on 2026-10-20 (ruling 36). The second half of the Einstein warning is still open (`author-model.md` §7).
+
+## His answers on the open items (2026-10-20)
+
+Put to him through the user on 2026-10-19 as «оставить мелким замечанием или убрать» (`author-model.md` §7). Times are in `reply.txt`. Ruling 10 (ℝ²) is closed above.
+
+34. **2 − x = 3 as a map to {да, нет}: removed.** «Супер классно. Но убираем.» *(00:01–00:32.)*
+35. **dt′/t′: kept, as a small «Замечание», in the wording of our earlier draft.** «Как оно сделано в твоём файле, вот в таком виде в качестве замечания оставляем, у меня этого нету… добавь, будет лучше.» *(00:32, 01:24.)* Lecture 1 has it in §5, after the renaming of dummy indices.
+36. **Composition of index functions: removed.** «убираем, это, конечно, гениально, но… убираем»; «гениально» meant that the thought was good in the lecture. *(00:32–01:03.)*
+37. **«Пятнашки»: removed.** «Пятнашки, если лишние, то убираем.» He may edit the permutations passage himself later («потом посмотрим, я уже, может, сам подредактирую»). *(01:03–01:24.)*
+38. **T(x, y) / T(r⃗): removed.** *(01:03–01:24.)*
+39. **Fig. 6: kept, small.** «Можешь оставить рисунок, просто сделай его компактным, небольшим, он не настолько осмысленный, чтобы он занимал полстраницы.» *(01:24–01:57.)* The two-circle version (about a ninth of the page) is the answer.
+40. **Praise is not a reason to keep.** «Всё, что лишнее, убираем.» *(01:03.)* An aside he enjoyed or praised stays only when he says so; otherwise the "used later?" test (ruling 25) decides. What stays as a side remark is set in the small grey style («вот таким вот сереньким, как у тебя замечание хорошо оформлено», 01:24). He also confirmed the removal of operators and functionals, the closing summary and the Taylor caveat. *(01:57.)*
 
 ## Open: the author still has to decide
 
-The items in `author-model.md` §7 were put to him on 2026-10-19: ℝ², 2−x=3, dt′/t′, composition, «пятнашки», T(x,y)/T(r⃗) and fig. 6. Move each answer up into a ruling. Earlier open items are closed:
+- **The Einstein warning, second half.** In review 1 he praised our sentence on why all indices are written as subscripts for now (28:32–29:01). His own warning lacks it. Not asked yet (`author-model.md` §7).
+
+Closed earlier:
+- **the items of `author-model.md` §7:** rulings 10 and 34–40;
 - **the side-remark style:** ruling 18;
 - **§3 as exposition or as questions and answers:** his text uses questions answered at once;
 - **a single definition of «индексная функция»:** his text keeps «индексная» and «многоиндексная» and says that «индексная» may cover both;
