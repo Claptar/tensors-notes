@@ -1,14 +1,15 @@
 # Style and format
 
-Contents: 1. Voice · 2. Document skeleton · 3. Markdown and math rules · 4. Russian typography · 5. Callouts in drafts · 6. Format example: the opening of lecture 1
+Contents: 1. Voice · 2. Document skeleton · 3. Markdown and math rules · 4. Russian typography · 5. Callouts in drafts · 6. The model: the opening of his lecture 1
 
 ## 1. Voice
 
-The register is a book's, not a lecture's: read `register.md` (what to transform, what to keep, before/after examples) and `author-rulings.md` (what the author has decided) every time. The typographic conventions that go with it:
+The voice is his: read `author-model.md` (how he writes, with evidence), `register.md` (what to transform) and `author-rulings.md` (what he decided) every time. The typographic conventions that go with it, all as in his lecture 1:
 
-- Definitions put the defined term in **bold** in the sentence that defines it: «**Индексной функцией** называется любое отображение $a\colon I \to \mathbb{R}$». Use *italics* for emphasis, sparingly.
-- Proofs stay in prose: «*Доказательство.*» … «что и завершает доказательство.»
-- Side remarks («Замечание», «Предупреждение», «Забегая вперёд») are callouts, see §5: they are set apart typographically, so the main line stays linear.
+- **Bold only for the lecture's central defined terms**, in the sentence that defines them: «**Индексной функцией** называется любое отображение $a\colon I \to \mathbb{R}$». In his lecture 1 that is two terms in the whole text. Other named objects are defined in plain type («Символом Кронекера по определению называется отображение…»). Course terms go in quotes («немой», «свободные»). Use *italics* for a stressed word, sparingly (*новая функция*, *концептуально просто*).
+- Proofs stay in prose: «Доказательство просто и проводится вручную…», «…что и завершает доказательство.»
+- A warning or a forward reference can sit in the main text, as in his: «Предупреждение: позже, в контексте тензоров, появится…», «Забегая вперёд скажем, что…». Side-remark callouts (§5) are for material that isn't needed later but is worth keeping. Use them rarely: his lecture 1 has none.
+- Questions the text has prepared for, answered at once: «Имеет ли смысл писать $a = b$? Да.»
 - Prose, not bullet points. A list is fine for a genuine enumeration (three properties, four cases); it is not a substitute for an explanation.
 
 ## 2. Document skeleton
@@ -20,7 +21,7 @@ The register is a book's, not a lecture's: read `register.md` (what to transform
 >
 > **О чем лекция:** функции на линейном пространстве; линейные формы и их геометрический смысл; компоненты линейной формы в базисе.
 
-Вводный абзац: что сегодня и зачем, как это связано с прошлой лекцией — в той рамке, которую задал сам лектор в начале записи.
+Один вводный абзац: что это за лекция, зачем она и чему в ней предстоит научиться — в той рамке, которую задал сам лектор в начале записи.
 
 ## 1. Название раздела
 
@@ -32,13 +33,20 @@ The register is a book's, not a lecture's: read `register.md` (what to transform
 
 ## 2. …
 
+## N. Примеры
+
+### N.1. …
+
 ---
 
 *Конец лекции 4.*
 ```
 
-- **Необходимые знания**: what the lecture actually relies on, both general mathematics and earlier lectures (name them).
-- **О чем лекция**: the topics as noun phrases, one or two sentences.
+- **Необходимые знания**: what the lecture actually relies on, both general mathematics and earlier lectures (name them), as a comma list.
+- **О чем лекция**: the topics as noun phrases, two short sentences, **no parentheses or glosses** (his: «понятие индексной и многоиндексной функции, операции над ними. Суммы и перестановочность сумм. Символы Кронекера и Леви-Чивиты.»). Each sentence corresponds to a section.
+- **One introductory paragraph.** It may open «Сегодня — …», as his does.
+- **The concrete objects** (named functions, standard constructions, the computations with them) come at the end, in «Примеры», as subsections.
+- **No summary before «Конец лекции»**: he cut his own.
 - Sections are numbered `## 1.`, `## 2.`, … and subsections `### 2.1.` in sequence. The LaTeX build renumbers automatically and warns if your numbers disagree.
 - For a draft written without a transcript, the banner goes right under the title (see SKILL.md).
 - In every draft under review, each paragraph is preceded by its «Идея» callout (§5).
@@ -69,7 +77,8 @@ The draft is read in VS Code's preview (markdown-it + KaTeX) and later converted
 
 **Text**
 - Bold `**…**` and italic `*…*` only (no underscores for emphasis).
-- Markdown tables are fine for simple value tables. Inside a table cell write `\vert` or `\mid` instead of `|` in math.
+- Markdown tables are fine for simple value tables (arguments | value). `finalize.py` sets them as he likes: a rule under the header and one before the value column, no other vertical rules. More than 12 rows are split into blocks side by side. Inside a table cell write `\vert` or `\mid` instead of `|` in math.
+- **No table may sit half a page down after a gap.** A long table (his ε table: 27 rows) is laid out horizontally, in blocks side by side; in a display `array`, write the blocks yourself (`lint` and `finalize` warn above 12 rows).
 - No raw HTML except comments (notes to yourself, on their own line). Anything the lecturer or the user must see or decide goes in a «Вопрос» callout (§5), not in a comment.
 - Blockquotes are only for the header block, the draft banner and callouts (§5).
 
@@ -108,11 +117,12 @@ A callout is a blockquote whose first words are a label. One convention serves V
 - **`> **Идея.** …`** — draft only. One sentence: what the next paragraph establishes (not a summary of its words), with the transcript time it comes from. One before every new paragraph, side remarks included; not before figures, captions or a paragraph that continues after a display formula (it starts in lower case). The lecturer reads these to check that the main idea was understood; when they correct one, rewrite the paragraph from the corrected idea. Left out of the .tex/.pdf; removed from the .md when the lecture is approved (`finalize.py --strip-ideas`).
 - **`> **Вопрос N.** (hh:mm:ss) …`** — draft only. Numbers are stable identifiers the lecturer and the user refer to: a new question takes the next free number, even when it sits earlier in the text, and answered numbers are not reused. A question meant for the user rather than the lecturer (when you can't ask them directly, e.g. as a subagent) is labelled `> **Вопрос N (для пользователя).** …`. Something only the lecturer (or the user) can settle: a garbled passage, two possible readings, a term, a proposal that goes beyond the lecture. Say what is unclear and give the options; the text meanwhile carries the most defensible version. Numbered through the lecture. `finalize.py` refuses to run while one is left. (These replace the old invisible `<!-- ПРОВЕРИТЬ … -->` comments: the lecturer reads the rendered page and must see them.)
 - **Statements set apart** — a paragraph opening with **Определение.**, **Лемма.**, **Теорема.** or *Доказательство.* — are paragraphs like any other: the statement gets its Идея (what it states), the proof its own (how it goes).
-- **`> *Замечание.* …`, `> *Предупреждение.* …`, `> *Забегая вперёд.* …`, `> *Замечание редактора.* …`** — side remarks, part of the book: material that belongs here but doesn't carry the main line (a bridge to other knowledge, a caution, a forward reference to tensors, a physics aside). Set smaller and lighter, like a figure caption; never boxed. «Замечание редактора» marks our own addition in a draft; when the author accepts it, relabel it «Замечание».
+- **`> *Замечание.* …`, `> *Предупреждение.* …`, `> *Забегая вперёд.* …`** — side remarks, part of the book: material that belongs here but isn't used later in the lecture, and is still worth keeping (a bridge to other knowledge, a physics aside). Set smaller and lighter, like a figure caption, never boxed; he approved this look. Use them rarely. His lecture 1 drops such asides altogether and keeps warnings inline.
+- **Our own additions are not labelled in the text.** «Замечание редактора» is no longer used (author-rulings 29). Mark an addition in its paragraph's Идея callout, e.g. `> **Идея.** … *(добавление)*`, and list it in the report. `lint_text.py` flags «Замечание редактора», and `finalize.py` refuses it.
 
-## 6. Format example: the opening of lecture 1
+## 6. The model: the opening of his lecture 1
 
-The original "Лекция 1. Индексы" (the PDF in `raw/examples/`) as it looks in this Markdown format — header block, display math, a value table, a figure with its caption. Use it for format. For register, `register.md` and `author-rulings.md` take precedence: this text predates the author's review (e.g. its «Сегодня» is lecture-time phrasing the book now avoids), and the current `docs/lecture-01/lecture-01.md` is the reviewed version.
+His own lecture 1 (`raw/reviews/lecture-01/lecture1_indices.tex`), in this Markdown format, word for word except for typos. `scripts/tex_to_md.py` converts the whole file. This is the standard for format *and* voice: header block, a one-paragraph introduction, display math, a value table, «Вспомним», «Следует понимать», «Как мы увидим», bold only for «Индексной функцией». Figures are where we may add (he praised them): introduce one in the text as a visualization, at most a third of a page, with a short caption.
 
 ```markdown
 # Лекция 1. Индексы
@@ -121,17 +131,17 @@ The original "Лекция 1. Индексы" (the PDF in `raw/examples/`) as it
 >
 > **О чем лекция:** понятие индексной и многоиндексной функции, операции над ними. Суммы и перестановочность сумм. Символы Кронекера и Леви-Чивиты.
 
-Сегодня — нулевая, вводная лекция курса. Сам тензорный анализ начнётся позже, сейчас нужно навести порядок с индексами. Это материал, который обычно считается «очевидным» и поэтому подробно не объясняется. Между тем без аккуратного отношения к индексам последующее изложение тензоров и линейной алгебры невозможно. Неформально говоря, цель лекции — научиться работать с такими конструкциями, как
+Сегодня — нулевая, вводная лекция курса. Сам тензорный анализ начнётся позже, сейчас нужно навести порядок с индексами. Это материал, который обычно считается «очевидным» и поэтому подробно не объясняется. Между тем, без аккуратного отношения к индексам последующее изложение тензоров и линейной алгебры невозможно. Неформально говоря, цель лекции — научиться работать с такими конструкциями, как
 
 $$
-a_i, \qquad b_{ij}, \qquad \sum_{k=1}^{n} a_{ik} b_{kj}, \qquad \delta_{ij}, \qquad \varepsilon_{ijk},
+a_i, \quad b_{ij}, \quad \sum_{k=1}^{n} a_{ik} b_{kj}, \quad \delta_{ij}, \quad \varepsilon_{ijk},
 $$
 
 понимая их как функции на некотором конечном множестве.
 
 ## 1. Функции и отображения
 
-Вспомним понятие функции как частного случая отображения между двумя множествами. Пусть $X, Y$ — два множества. **Отображением** $f\colon X \to Y$ называется правило, которое каждому элементу $x \in X$ сопоставляет единственный элемент $f(x) \in Y$. Когда $X$ и $Y$ — числовые множества (например, множество действительных чисел $\mathbb{R}$), отображение принято называть числовой функцией, или просто функцией. Так, запись
+Вспомним понятие функции как частного случая отображения между двумя множествами. Пусть $X, Y$ — два множества. Отображением $f\colon X \to Y$ называется правило, которое каждому элементу $x \in X$ сопоставляет единственный элемент $f(x) \in Y$. Когда $X$ и $Y$ — числовые множества (например, множества действительных чисел $\mathbb{R}$), отображение принято называть числовой функцией, или просто функцией. Так, запись
 
 $$
 f\colon \mathbb{R} \to \mathbb{R}, \qquad f(x) = x^2
@@ -145,37 +155,27 @@ $$
 
 описывают одну и ту же функцию $f$. А вот запись $f(x) = y^2$ — бессмыслица.
 
-Заметим, что в физике традиция диктует противоположное: одну и ту же физическую величину часто обозначают одной буквой — давление $p(T, V)$ и $p(T, S)$ как функцию температуры и объёма в одном случае и температуры и энтропии в другом. Этим удобством мы дальше злоупотреблять не будем: с математической точки зрения это две разные функции, следовательно, они должны обозначаться разными буквами.
+Заметим, что в физике традиция диктует противоположное: одну и ту же физическую величину часто обозначают конкретной буквой: давление $p(T, V)$ и $p(T, S)$ как функции температуры и объёма в одном случае и температуры и энтропии в другом. Этим удобством мы дальше злоупотреблять не будем: с математической точки зрения это две разные функции, следовательно, должны обозначаться разными буквами.
 
 ## 2. Индексные функции
 
-Дальнейшие рассуждения, как, по существу, и вся лекция, будут посвящены специальному случаю числовых функций, а именно такому, когда область определения функции представляет собой конечное множество. Этот случай гораздо проще, чем случай функций, определённых на всём множестве вещественных чисел, однако он менее привычен. Опыт работы с «обычными» функциями здесь будет полезен: многие факты переносятся на новый случай путём полной аналогии.
+Дальнейшие рассуждения, как, по существу, и вся лекция, будут посвящены некоторому специальному случаю числовых функций, а именно такому, когда область определения функции представляет из себя конечное множество. Как мы увидим, этот случай гораздо проще, чем случай функций, определённых на всём множестве вещественных чисел, однако он менее привычен. Это обстоятельство мы и собираемся устранить, причём уже имеющийся опыт работы с «обычными» функциями будет в этом полезен: многие факты будут перенесены на специальный случай путём полной аналогии.
 
 Зафиксируем натуральное $n \in \mathbb{N}$ и рассмотрим множество
 
 $$
-I = \{1, 2, 3, \dots, n\}.
+I = \{1, 2, 3, \ldots, n\}.
 $$
 
-**Индексной функцией** называется любое отображение $a\colon I \to \mathbb{R}$. Для таких функций по чисто визуальным причинам принята особая запись: вместо $a(i)$ пишут $a_i$. По определению
+**Индексной функцией** называется любое отображение $a\colon I \to \mathbb{R}$.
+
+Для таких функций по чисто визуальным причинам принята особая запись: вместо $a(i)$ пишут $a_i$. По определению
 
 $$
 a_i \equiv a(i), \qquad \forall i \in I.
 $$
 
-Вновь подчеркнём, что $a$ — это имя функции, а $i$ — имя её аргумента.
-
-[…] Множество определения индексной функции конечно, поэтому самым естественным способом её задания является перечисление значений при всех возможных аргументах — таблица:
-
-| $i$ | $1$ | $2$ | $3$ | $\cdots$ | $n$ |
-|---|---|---|---|---|---|
-| $a_i$ | $a_1$ | $a_2$ | $a_3$ | $\cdots$ | $a_n$ |
-
-График индексной функции на декартовой плоскости вырождается в конечное множество точек (рис. 1), поэтому графический способ не имеет преимуществ перед таблицей.
-
-![](figures/index-function-graph.svg)
-
-*Рис. 1. График индексной функции $a\colon I \to \mathbb{R}$ — всего $n$ точек; таблица несёт ту же информацию нагляднее.*
+Вновь подчеркнём, что $a$ — это имя функции, а $i$ — имя её аргумента. […]
 ```
 
-(The figure in this excerpt shows *where* a figure fits naturally. The original lecture 1 has no figures, and adding them is the kind of improvement that's wanted.)
+The only changes from his file are typos («собсвтенного» → «собственного»), «ё», «» quotes for his "…", and math spacing. When a lecture is rebuilt from his text, every such change is listed for him.

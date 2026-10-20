@@ -1,58 +1,122 @@
 # The author's rulings
 
-What the lecturer decided while reviewing drafts. These rulings override the recordings: if the lecturer said something one way in a lecture and has since ruled otherwise, the ruling wins. They also override the skill's own defaults. Read this file before writing or revising any lecture. Apply each ruling to every lecture, not only the one where it came up.
+What the lecturer has decided in reviews of drafts. **Read `author-model.md` first.** His own written lecture 1 (`raw/reviews/lecture-01/lecture1_indices.tex`) is the standard and outranks these rulings. A review comment says where a draft drifted from how he writes, so read every ruling against his text, never as a general ban.
 
-Each entry gives the ruling, its source (the review and the time in that recording) and, where useful, what to do. Reviews are kept in `raw/reviews/lecture-NN/` (decoded as `review.utf8.txt`). Add new rulings at the end of their section, with the date. When the lecturer answers a «Вопрос» with something general, it belongs here too.
+The order of authority is: his text, then these rulings, then the recordings. Our own defaults come below all three. Apply each ruling to every lecture.
+
+Each entry gives the ruling, its source (the review and the time in it) and a status:
+- **keep**;
+- **narrowed** (the scope is restated);
+- **retired** (no longer applies);
+- **closed** (an open point that has been decided).
+
+Statuses were checked against his text on 2026-10-19.
+
+Reviews:
+- review 1, 2026-10-12: `raw/reviews/lecture-01/review.utf8.txt`;
+- review 2, 2026-10-19: `raw/reviews/lecture-01/monday19.10.26.txt`, UTF-16;
+- his notes on reference books: `raw/reviews/lecture-01/style.txt`.
+
+Add new rulings at the end of their section, with the date. When the lecturer answers a question with something general, it belongs here too.
 
 ## Register and form
 
-1. **Book language, not lecture speech.** The model is Landau–Lifshitz; Feynman's lectures are the most freedom allowed. *(Lecture 1 review, 2026-10-12, 00:39–02:21, 16:29.)* How: `register.md`.
-2. **No personal pronouns or addressing the reader where it can be avoided.** «нас сейчас интересует» → «в данном случае важна сама операция»; «пока примем на веру» → «пока следует принять как данность»; «не запишешь» → «не записать». The authorial «Рассмотрим», «будем называть» stays. *(19:22–19:54, 37:14, 44:19.)*
-3. **No references to textbooks, to the reader's past experience or difficulties, and no emotion.** The book is a sequential exposition in which the reader builds the subject. The physics conventions ("физики пишут так, мы так не будем") are not this: they are useful remarks and they stay. *(39:10–41:04.)*
-4. **No clipped sentences** («Вот и всё.», «Обычно пишут самую короткую.»): fold them into the neighbouring sentence. Don't chop one thought into several sentences. *(33:52–36:34.)*
-5. **The narrative is linear, and nothing falls from the sky.** A question, a picture or an example needs a lead-in. Spoken jumps (a digression, then back) are not allowed. *(16:29–17:22, 46:42.)*
-6. **Decide each paragraph's idea first, then the words.** The main idea must be stated, not buried. In drafts this is the «Идея» callout. *(22:22–23:19.)*
-7. **«Неформально: …»** before an informal restatement is approved. *(43:48–44:19.)*
-8. **Questions the text has prepared for are fine**, e.g. «Как задать индексную функцию?». *(04:49.)*
+1. **Book language, not lecture speech.** *(Review 1, 00:39–02:21, 16:29; `style.txt`.)* **Keep.** Narrowed by `style.txt`:
+   - wording after Landau–Lifshitz;
+   - narrative after Slobodyanyuk and Feynman, which are the ceiling of chattiness, and ours stays below it;
+   - layout after MTW.
+
+   No jokes. See `author-model.md` §6.
+2. **No personal pronouns or addressing the reader where it can be avoided.** *(19:22–19:54, 37:14, 44:19.)* **Narrowed.**
+   - What goes is the lecture-room address: «нас сейчас интересует», «пока примем на веру», «не запишешь», «вы».
+   - His text keeps the authorial «мы» (17 times: «мы имеем дело», «как мы увидим», «мы будем называть») and the occasional «заметьте» / «обратите внимание».
+3. **No references to textbooks, to the reader's past experience or difficulties, and no emotion.** *(39:10–41:04.)* **Keep, narrowed on emotion.**
+   - "Emotion" means a mood with no content. His text has «никакой магии тут нет: достаточно построить таблицу всех значений руками» once, with the reason right after it, and «Как можно догадаться, простор… огромен».
+   - The physics conventions («в физике традиция диктует противоположное») are not this kind of reference; they stay.
+4. **No clipped sentences** («Вот и всё.», «Обычно пишут самую короткую.»): fold them into the neighbouring sentence. *(33:52–36:34.)* **Keep.** The exception is a short answer to the question just asked («Имеет ли смысл писать a = b? Да.»), which is his.
+5. **The narrative is linear, and nothing falls from the sky.** A question, a picture or an example needs a lead-in. *(16:29–17:22, 46:42.)* **Keep.**
+6. **Decide each paragraph's idea first, then the words.** *(22:22–23:19.)* **Keep as our working method.** He reviewed only the typeset pages and has never responded to the «Идея» callouts. Whether to show them to him is decided in `SKILL.md`.
+7. **«Неформально: …»** before an informal restatement. *(43:48–44:19.)* **Keep.** His wording is «Неформально говоря, …».
+8. **Questions the text has prepared for are fine.** *(04:49.)* **Keep.** In his text the answer follows at once (`author-model.md` §3).
 
 ## Content and claims
 
-9. **Keep every detail, as in the lectures.** The author decides what to cut («что сокращать, я сам решу»). Don't shorten on our own. *(05:14, 03:07.)*
-10. **Remarks that no additional structure is assumed must never be dropped.** For example, $\mathbb{R}^2$ is just a set of ordered pairs, not the plane with distances and angles. *(09:42–10:12.)*
-11. **Visualizations are optional.** Write «могут быть изображены / если расположить … , то …», never «расположены». Facts hold by definition, and the picture only helps to see them. The reader must not come away thinking the picture is always there or always needed. *(11:55–13:31, 18:27, 46:42.)*
-12. **Sum and integral are analogous, not the same.** Say «аналог» and «внешнее сходство», and say what is analogous: the result is a number; summing over one index leaves a function of the others. Never «ту же роль». In lecture 1 the lecturer did say «то, что с непрерывными интеграл называется, тут будет суммами» (00:20:47) and «полный аналог» (00:50:13); this ruling supersedes that. *(20:12–21:53.)*
-13. **No concept before its definition.** In lecture 1, §4.3 must not use «матрица» or $A^{\mathrm{T}}$: matrices are defined in §7. Say «если записать функцию двумерной таблицей, она симметрична относительно главной диагонали». *(18:27–19:22.)*
-14. **Before tensors are introduced, mentions of tensors are side remarks.** «Вектор — столбец, тензор — трёхмерная таблица» is at most a remark. Tensor ≠ its components. *(14:21–14:54, 44:47.)*
-15. **Be precise about what components are.** The goal of lecture 1 is to learn to work with expressions such as $a_i$, $b_{ij}$, $\sum_k a_{ik}b_{kj}$. It is not true that tensor components *are* such sums. *(01:20–02:21.)*
-16. **Motivate computations and draw conclusions.** Example: why the contraction of two $\varepsilon$ is worth computing (double cross product, curl of a cross product); what the computation showed. *(48:59–50:57.)*
+9. ~~Keep every detail; the author does the cutting.~~ *(05:14, 03:07.)* **Retired** by review 2 and his text. See ruling 25.
+10. **Remarks that no additional structure is assumed must never be dropped** (e.g. ℝ² is just a set of ordered pairs, not a plane with distances and angles). *(09:42–10:12.)* **In question.** His text has no such remark about ℝ². It was put to him on 2026-10-19 (`author-model.md` §7). Until he answers, don't drop it in a new lecture without asking.
+11. **Visualizations are optional:** «могут быть изображены / если расположить …, то …», never «расположены». *(11:55–13:31, 18:27, 46:42.)* **Keep.** His text: «визуализация также возможна с помощью таблиц двумя способами».
+12. **Sum and integral are analogous, not the same.** *(20:12–21:53.)* **Narrowed.**
+    - «аналог», «полная аналогия», «полный аналог» are his words («Для индексной функции аналогом служит сумма», «Вновь прослеживается полная аналогия с интегралами»).
+    - What is ruled out is «ту же роль» and any claim that the operations are the same.
+    - The earlier note that this ruling supersedes «полный аналог» is withdrawn.
+13. **No concept before its definition.** In lecture 1, the symmetry passage must not use «матрица» or $A^{\mathrm{T}}$, because matrices are defined later. *(18:27–19:22.)* **Keep.** His text defines symmetry without matrices.
+14. **Before tensors are introduced, mentions of tensors are brief.** *(14:21–14:54, 44:47.)* **Narrowed.**
+    - His text keeps a short «Забегая вперёд скажем, что существует и тензор Леви-Чивиты… В этой лекции речь идёт только о *символе*» **in the main text**, and the Einstein warning inline.
+    - He cut a longer «не путайте c_ij с тензором» remark from §4.
+    - So: a one- or two-sentence forward reference, with no explanation of what tensors are.
+15. **Be precise about what components are.** *(01:20–02:21.)* **Keep.** His introduction makes no claim about components at all.
+16. **Motivate computations and draw conclusions.** *(48:59–50:57.)* **Narrowed.**
+    - Motivation: yes («часто встречается в физических задачах: двойное векторное произведение, ротор…»).
+    - Conclusions belong inside the section («Таким образом, убеждаемся, что… идеи симметрий могут значительно продвинуть вперёд»).
+    - **No end-of-lecture summary:** he cut his own «Краткое резюме».
 
 ## Pictures and layout
 
-17. **Captions may carry secondary details.** Don't repeat the caption in the text. *(02:44–03:07.)*
-18. **Side remarks** («Замечание», «Предупреждение», forward references) are typographically subordinate, «как подпись к рисунку»: smaller or lighter text. Not boxes, which are reserved for the rare thing the author marks as very important. Design for paper first. *(05:37–06:43, 26:31–28:00.)* The exact style is open (see below).
-19. **«Предупреждение» is a caution, not something essential: not bold.** «Доказательство» may be bold. *(31:05.)* Pending the style choice.
-20. **Figures must not stick out.** Labels go inside the figure's rectangle. Tints don't touch brackets. A correspondence is drawn with arrows, not described as «положить A под B». *(32:24–32:58, 38:11–38:54.)*
-21. **Tables:** align signed numbers so that −1 doesn't stand out. *(48:03.)*
+17. **Captions may carry secondary details; don't repeat the caption in the text.** *(02:44–03:07.)* **Narrowed.** Captions are short: fig. 3's was too long (review 2, 05:57), and MTW's long captions are the counterexample (`style.txt`, 05:22).
+18. **Side remarks are typographically subordinate:** smaller or lighter, like a caption, never boxed. *(05:37–06:43, 26:31–28:00.)* **Closed on 2026-10-19.** He approved the current style: small, grey, with an italic label («замечание очень нравится», review 2 04:42, 06:37).
+19. **«Предупреждение» is a caution, not something essential: not bold.** «Доказательство» may be bold. *(31:05.)* **Keep.** His text writes «Предупреждение:» inline, in plain type.
+20. **Figures must not stick out.** Labels go inside the figure's rectangle, tints don't touch brackets, and a correspondence is drawn with arrows. *(32:24–32:58, 38:11–38:54.)* **Keep.** Sizes are covered by ruling 31.
+21. **Tables: align signed numbers** so that −1 doesn't stand out. *(48:03.)* **Keep.**
 
 ## Terms
 
-22. **«таблица-список» is approved.** *(13:53.)*
-23. **«квадратная таблица» is rejected.** It is odd for three indices or for $m \ne n$. The lecturer suggested «"многомерная" таблица», in quotes. The replacement is open (lecture 1, «Вопрос»). *(13:53–14:21.)*
+22. **«таблица-список» is approved.** *(13:53.)* **Keep, as allowed, not required.** His text says «таблица из двух столбиков (или строчек), в которой будут перечислены подряд все возможные аргументы» and «левая / правая таблица».
+23. **«квадратная таблица» is rejected.** *(13:53–14:21.)* **Closed.** No replacement term is needed: his text describes the table («таблица n × n», «правая таблица»).
 
-## What to keep doing (praised in review)
+## Review 2 (2026-10-19)
 
-- Figures that show a mechanism: the summed table (fig. 4, «шикарная картинка») and matrix times column (fig. 5, «волшебные»). Captions that explain them. *(31:35–32:09, 37:52.)*
-- The physics convention paragraph ($p(T,V)$ against $p(T,S)$): «мои слова, всё супер». *(03:33–04:30.)*
-- The composition paragraph («гениально»), the «Предупреждение» on the Einstein rule, the proof of the interchange of sums, and the «Неформально:» paragraph on $\delta$. *(08:19, 26:31–29:01, 31:35, 43:48.)*
-- The editor's remark on antisymmetry: «это вообще чётко». *(47:14.)*
+24. **His written lecture 1 is the standard.** Build lecture 1 on it with cosmetic changes only, and model every other lecture on how it was made from the recording. *(00:00–01:28, 04:42–05:20, 08:04–09:10.)*
+25. **The "used later?" test.** Knowledge that the rest of the lecture doesn't use is not fundamental. It becomes a small «Замечание» or is dropped («функции, операторы, функционалы» is dropped). «Это прикольно, когда я говорю это словами… когда я пишу это в тексте — не обязательно.» *(03:03–03:54.)*
+26. **Header.**
+    - «Необходимые знания» in his order.
+    - «О чём лекция» is two short sentences listing topics, with no parentheses or glosses.
+
+    *(01:28–02:11.)*
+27. **One introductory paragraph,** as in his text. *(02:11–02:42.)*
+28. **Bold only for the term being defined** (e.g. «индексная функция»). Other bold is optional and usually dropped; «симметричная» may stay for now. *(02:42, 04:18, 07:09.)*
+29. **No «Замечание редактора».** The book has only «Замечание». Our additions are tracked in the draft and the report, never by a label in the text. A fact (εε = δδ − δδ) goes into the main text. *(09:23, 10:06.)*
+30. **Additions by the author are normal** («прогрессии… я сам добавил… можешь подгрузить»). *(08:04.)*
+31. **Layout:**
+    - no figure takes half a page (fig. 6 was too big);
+    - no table sits half a page down after a gap;
+    - a long table goes horizontal, in blocks side by side, or with text wrapped around it;
+    - pages have no large empty stretches.
+
+    «Это должно выглядеть приятно.» *(09:23–11:12.)*
+32. **Tables without inner vertical rules** («без промежуточных палочек»). *(10:31.)*
+33. **Only book register for now.** A conversational mode may come later. *(00:49–01:28.)*
+
+## What to keep doing (praised in reviews)
+
+- **Figures.**
+  - Review 2: all of them, especially fig. 1, fig. 3 and the matrix figures; fig. 6 only too big.
+  - Review 1: fig. 4 «шикарная картинка», fig. 5 «волшебные»; captions that explain them. *(31:35–32:09, 37:52.)*
+- **The look of side remarks; tables without inner rules; «Перенумерация пар» as a subsection.** *(Review 2, 04:42, 06:37, 10:31.)*
+- **The physics paragraph** ($p(T,V)$ against $p(T,S)$): «мои слова, всё супер». *(Review 1, 03:33–04:30; also review 2.)*
+- **Review 1 also praised:**
+  - the composition paragraph («гениально»);
+  - the «Предупреждение» on the Einstein rule;
+  - the proof of the interchange of sums;
+  - the «Неформально:» paragraph on δ;
+  - the editor's remark on antisymmetry («это вообще чётко»).
+
+  *(08:19, 26:31–29:01, 31:35, 43:48, 47:14.)* Antisymmetry is defined in the main text of his §4. The composition paragraph and the second half of the warning are not in his text; see `author-model.md` §7.
 
 ## Open: the author still has to decide
 
-Each item is also a «Вопрос» in the draft where it arises. Move it up into a ruling once it is answered.
-
-- **The style of side remarks:** one of the options on `raw/reviews/lecture-01/aside-options.pdf`.
-- **§3 of lecture 1:** expository version, or questions and answers in book register. The lecturer asked for both. Speaker 2 likes the dialogue tone, Speaker 1 prefers the book. Afterwards keep one register for the whole book. *(06:43–07:51.)*
-- **A single definition of «индексная функция»:** any $a\colon I^k \to \mathbb{R}$, with no separate «многоиндексная». *(00:01, 10:12–11:07.)*
-- **A definition of even and odd permutations that doesn't depend on dimension.** *(46:10–46:42.)*
-- **Whether fig. 3 (the grid of $I^2$) is needed at all.** *(08:56.)*
-- **Whether the remarks on functions, operators and functionals, and on $T(x,y)$ against $T(\vec r)$, stay.** The lecturer may cut them; until then keep them, improved. *(03:07, 17:22.)*
+The items in `author-model.md` §7 were put to him on 2026-10-19: ℝ², 2−x=3, dt′/t′, composition, «пятнашки», T(x,y)/T(r⃗) and fig. 6. Move each answer up into a ruling. Earlier open items are closed:
+- **the side-remark style:** ruling 18;
+- **§3 as exposition or as questions and answers:** his text uses questions answered at once;
+- **a single definition of «индексная функция»:** his text keeps «индексная» and «многоиндексная» and says that «индексная» may cover both;
+- **parity of permutations:** his text defines even permutations as cyclic shifts for n = 3, links them to the parity of transpositions, and notes that everything can be checked directly;
+- **fig. 3:** kept («картинка супер»);
+- **operators/functionals:** dropped (ruling 25).
