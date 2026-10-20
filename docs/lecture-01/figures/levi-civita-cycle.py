@@ -1,16 +1,17 @@
-"""Рис. 6. Числа 1, 2, 3 на окружности. По часовой стрелке (красные стрелки) с любого места
-читаются чётные перестановки 123, 231, 312 (epsilon = +1); против часовой (синие) —
-нечётные 132, 321, 213 (epsilon = -1)."""
+"""Рис. 6. Числа 1, 2, 3 на окружности: по часовой стрелке (красные стрелки, слева) с любого места
+читаются чётные перестановки 123, 231, 312; против часовой (синие, справа) — нечётные 132, 321, 213.
+После второго обзора (2026-10-19, «рисовать эти циклические перестановки нет смысла»): только две
+окружности, без строк перестановок, низко и узко."""
 
 import math
 
 from _house import f, save
 
-W, H = 640, 290
-R = 62
-CENTERS = [(165, 120), (475, 120)]
+W, H = 400, 132
+R = 42
+CENTERS = [(100, 68), (300, 68)]
 ANG = {1: -90, 2: 30, 3: 150}       # градусы; в SVG рост угла = по часовой стрелке
-GAP = 20                             # угловой зазор вокруг цифр
+GAP = 22                             # угловой зазор вокруг цифр
 
 
 def pt(c, deg, r=R):
@@ -29,12 +30,10 @@ def parity(p):
 
 
 body = []
-panels = [(CENTERS[0], [1, 2, 3], "red"), (CENTERS[1], [1, 3, 2], "blue")]
-for c, order, col in panels:
-    perms = read_cycle(order)
-    sign = {parity([int(ch) for ch in p]) for p in perms}
-    assert len(sign) == 1
-    sign = sign.pop()
+panels = [(CENTERS[0], [1, 2, 3], "red", +1), (CENTERS[1], [1, 3, 2], "blue", -1)]
+for c, order, col, expected in panels:
+    # проверка: каждое прочтение цикла в этом направлении имеет ожидаемую чётность
+    assert {parity([int(ch) for ch in p]) for p in read_cycle(order)} == {expected}
     for k in range(3):
         u, v = order[k], order[(k + 1) % 3]
         a0, a1 = ANG[u], ANG[v]
@@ -50,10 +49,5 @@ for c, order, col in panels:
     for num, deg in ANG.items():
         x, y = pt(c, deg)
         body.append(f'  <text class="t mid" x="{f(x)}" y="{f(y + 7)}">{num}</text>')
-    lbl = "lbl-red" if col == "red" else "lbl-blue"
-    for k, p in enumerate(perms):            # три прочтения, каждое отдельной подписью
-        body.append(f'  <text class="t mid" x="{c[0] + 92 * (k - 1)}" y="{c[1] + R + 52}">({p[0]}, {p[1]}, {p[2]})</text>')
-    s = "+1" if sign > 0 else "−1"
-    body.append(f'  <text class="m mid {lbl}" x="{c[0]}" y="{c[1] + R + 86}">ε <tspan class="t">= {s}</tspan></text>')
 
 save("levi-civita-cycle", W, H, "\n".join(body) + "\n")

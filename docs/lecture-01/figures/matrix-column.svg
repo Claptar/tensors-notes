@@ -62,9 +62,9 @@
   <rect class="tint-red" x="470" y="71" width="32" height="106" rx="7"/>
   <rect class="tint-red" x="524" y="71" width="32" height="106" rx="7"/>
   <text class="m mid" x="432" y="58">j</text>
-  <text class="m mid" x="486" y="58">a<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan></text>
+  <text class="m mid" x="486" y="58">A<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan></text>
   <text class="m mid" x="540" y="58">b<tspan class="sub" dy="5">j</tspan></text>
-  <text class="m mid" x="600" y="58">a<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan><tspan dy="-5">b</tspan><tspan class="sub" dy="5">j</tspan></text>
+  <text class="m mid" x="600" y="58">A<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan><tspan dy="-5">b</tspan><tspan class="sub" dy="5">j</tspan></text>
   <path class="thin" d="M412,72 L632,72"/>
   <text class="t mid" x="432" y="96" fill-opacity="0.7">1</text>
   <text class="t mid" x="486" y="96">1</text>

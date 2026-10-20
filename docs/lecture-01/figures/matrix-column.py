@@ -1,6 +1,6 @@
 """Рис. 5. Произведение матрицы на столбец как сумма по общему индексу j:
-c_1 = a_11 b_1 + a_12 b_2 + a_13 b_3 = 1·3 + 2·4 + 3·5 = 26.
-Слева строка i = 1 и столбец b выделены; справа те же значения a_1j и b_j выписаны
+c_1 = A_11 b_1 + A_12 b_2 + A_13 b_3 = 1·3 + 2·4 + 3·5 = 26.
+Слева строка i = 1 и столбец b выделены; справа те же значения A_1j и b_j выписаны
 таблицей-списком по j (строка или столбец — лишь способ записи функции одного индекса),
 рядом их произведения, сумма которых и есть c_1."""
 
@@ -44,17 +44,17 @@ body.append(parens(BX - 12 - PAD - 9, BX + 12 + PAD + 9))
 body.append(parens(CX - 15 - PAD - 9, CX + 15 + PAD + 9))
 body.append(f'  <text class="t mid" x="{(BX + CX) / 2 + 4}" y="{MY[1]}">=</text>')
 
-# справа: таблица-список по j — значения a_1j, b_j и их произведения
-TX = [432, 486, 540, 600]           # столбцы: j, a_1j, b_j, a_1j b_j
+# справа: таблица-список по j — значения A_1j, b_j и их произведения (обозначения его § 6.2)
+TX = [432, 486, 540, 600]           # столбцы: j, A_1j, b_j, A_1j b_j
 TY0 = 58                            # строка заголовков
 TY = [96, 132, 168]                 # строки j = 1, 2, 3
 SY = 214                            # строка суммы
 body.append(f'  <rect class="tint-red" x="{TX[1] - 16}" y="{TY[0] - 25}" width="32" height="{TY[2] - TY[0] + 34}" rx="7"/>')
 body.append(f'  <rect class="tint-red" x="{TX[2] - 16}" y="{TY[0] - 25}" width="32" height="{TY[2] - TY[0] + 34}" rx="7"/>')
 body.append(f'  <text class="m mid" x="{TX[0]}" y="{TY0}">j</text>')
-body.append(f'  <text class="m mid" x="{TX[1]}" y="{TY0}">a<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan></text>')
+body.append(f'  <text class="m mid" x="{TX[1]}" y="{TY0}">A<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan></text>')
 body.append(f'  <text class="m mid" x="{TX[2]}" y="{TY0}">b<tspan class="sub" dy="5">j</tspan></text>')
-body.append(f'  <text class="m mid" x="{TX[3]}" y="{TY0}">a<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan>'
+body.append(f'  <text class="m mid" x="{TX[3]}" y="{TY0}">A<tspan class="t sub" dy="5">1</tspan><tspan class="sub">j</tspan>'
             f'<tspan dy="-5">b</tspan><tspan class="sub" dy="5">j</tspan></text>')
 body.append(f'  <path class="thin" d="M{TX[0] - 20},{TY0 + 14} L{TX[3] + 32},{TY0 + 14}"/>')
 for j in range(3):
